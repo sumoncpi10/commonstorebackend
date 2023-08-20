@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model PBS{
+  id String @id @default(uuid())
+  pbs_code String
+  pbs_name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("pbs")
+}
+model Zonals{
+  id String @id @default(uuid())
+  zonal_code String
+  zonal_name String
+  pbs_code String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("zonals")
+}
+model Substation{
+  id String @id @default(uuid())
+  ss_code String
+  ss_name String
+  zonal_code String
+  pbs_code String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("substations")
+}
+model ComplainCenter{
+  id String @id @default(uuid())
+  cc_code String
+  cc_name String
+  zonal_code String
+  pbs_code String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("complain_center")
+}
+model User{
+  id String @id @default(uuid())
+  mobile_no String
+  password String
+  role String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("users")
+}
+
+model EmployeeInfo{
+  id String @id @default(uuid())
+  user_id String
+  name String
+  designation String
+  phone String
+  address String
+  trg_id String
+  photo_url String
+  sign_url String
+  pbs_code String
+  zonal_code String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("employee_info")
+}
