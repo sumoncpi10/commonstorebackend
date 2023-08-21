@@ -12,64 +12,263 @@ datasource db {
 
 model PBS{
   id String @id @default(uuid())
-  pbs_code String
-  pbs_name String
+  pbsCode String @unique
+  pbsName String
+  model Model[]
+  brand Brand[]
+  user User[]
+  zonals Zonals[]
+  substation Substation[]
+  complainCenter ComplainCenter[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("pbs")
 }
 model Zonals{
   id String @id @default(uuid())
-  zonal_code String
-  zonal_name String
-  pbs_code String
+  zonalCode String 
+  zonalName String
+  pbsCode String
+  model Model[]
+  brand Brand[]
+  user User[]
+  pbs PBS @relation(fields: [pbsCode], references: [id])
+  substation Substation[]
+  complainCenter ComplainCenter[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("zonals")
 }
 model Substation{
   id String @id @default(uuid())
-  ss_code String
-  ss_name String
-  zonal_code String
-  pbs_code String
+  substationCode String
+  substationName String
+  model Model[]
+  brand Brand[]
+  user User[]
+  zonalCode String
+  zonals Zonals @relation(fields: [zonalCode], references: [id])
+  pbsCode String
+  pbs PBS @relation(fields: [pbsCode], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("substations")
 }
 model ComplainCenter{
   id String @id @default(uuid())
-  cc_code String
-  cc_name String
-  zonal_code String
-  pbs_code String
+  complainCode String
+  complainName String
+  zonalCode String
+  model Model[]
+  brand Brand[]
+  user User[]
+  zonals Zonals @relation(fields: [zonalCode], references: [id])
+  pbsCode String
+  pbs PBS @relation(fields: [pbsCode], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("complain_center")
 }
 model User{
   id String @id @default(uuid())
-  mobile_no String
+  mobileNo String
   password String
   role String
+  pbsCode String
+  pbs PBS @relation(fields: [pbsCode], references: [id])
+  zonalCode String
+  zonals Zonals @relation(fields: [zonalCode], references: [id])
+  substationCode String
+  substation Substation @relation(fields: [substationCode], references: [id])
+  complainCode String
+  complainCenter ComplainCenter @relation(fields: [complainCode], references: [id])
+  employeeId Employee[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("users")
 }
 
-model EmployeeInfo{
-  id String @id @default(uuid())
-  user_id String
+model Employee{
+  id String @id @default(uuid()) 
   name String
   designation String
   phone String
   address String
-  trg_id String
-  photo_url String
-  sign_url String
-  pbs_code String
-  zonal_code String
+  trgId String
+  photoUrl String
+  signUrl String
+  userInfoId String  @unique 
+  user User @relation(fields: [userInfoId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  @@map("employee_info")
+  @@map("employees")
 }
+
+model Department{
+  id String @id @default(uuid())
+  title String
+  designation Designation[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("departments")
+}
+
+model Designation{
+  id String @id @default(uuid())
+  title String
+  departmentId String
+  department Department @relation(fields: [departmentId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("designations")
+}
+model Brand{
+  id String @id @default(uuid())
+  brandName String
+  pbsCode String
+  pbs PBS @relation(fields: [pbsCode], references: [id])
+  zonalCode String
+  zonals Zonals @relation(fields: [zonalCode], references: [id])
+  substationCode String
+  substation Substation @relation(fields: [substationCode], references: [id])
+  complainCode String
+  complainCenter ComplainCenter @relation(fields: [complainCode], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("brand")
+}
+model Model{
+  id String @id @default(uuid())
+  brandName String
+  pbsCode String
+  pbs PBS @relation(fields: [pbsCode], references: [id])
+  zonalCode String
+  zonals Zonals @relation(fields: [zonalCode], references: [id])
+  substationCode String
+  substation Substation @relation(fields: [substationCode], references: [id])
+  complainCode String
+  complainCenter ComplainCenter @relation(fields: [complainCode], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("model")
+}
+
+
+model ItemType{
+  id String @id @default(uuid())
+  itemType String
+  category Category[]
+  subCategory SubCategory[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("item_type")
+}
+
+model Category{
+  id String @id @default(uuid())
+  categoryName String
+  itemTypeId String
+  itemType ItemType @relation(fields: [itemTypeId], references: [id])
+  subCategory SubCategory[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("category")
+}
+model SubCategory{
+  id String @id @default(uuid())
+  subCategoryCame String
+  itemTypeId String
+  itemType ItemType @relation(fields: [itemTypeId], references: [id])
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("sub_category")
+}
+
+
+
+model CapitalItem{
+  id String @id @default(uuid())
+  itemName String
+  modelNo String
+  brand String
+  serialNo String
+  description String
+  purchaseNate String
+  price String
+  warranty String
+  pbsNode String
+  zonalCode String
+  itemType String
+  category String
+  subCategory String
+  assignTo String
+  identificationNo String
+  supplier String
+  status String
+  issueBy String
+  approveBy String
+  receiveBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("capital_item")
+}
+
+model RevenueItem{
+  id String @id @default(uuid())
+  itemName String
+  modelNo String
+  brand String
+  description String
+  purchaseNate String
+  Price String
+  warranty String
+  pbsNode String
+  zonalNode String
+  itemType String
+  category String
+  subCategory String
+  assignTo String
+  supplier String
+  status String
+  issueBy String
+  approveBy String
+  receiveBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("revenue_item")
+}
+
+
+
+model Survicing{
+  id String @id @default(uuid())
+  identificationNo String
+  itemType String
+  category String
+  subCategory String
+  cost String
+  supplier String
+  survicingDate String
+  supervisedBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("survicing")
+}
+
+model Role{
+  id String @id @default(uuid())
+  employee String
+  storeInCharge String
+  approve String
+  zonalHead String
+  admin String
+  superAdmin String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("role")
+}
+
+
+
