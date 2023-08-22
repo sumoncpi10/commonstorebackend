@@ -20,6 +20,9 @@ model PBS{
   zonals Zonals[]
   substation Substation[]
   complainCenter ComplainCenter[]
+  capitalItem CapitalItem[]
+  revenueItem RevenueItem[]
+  supplier Supplier[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("pbs")
@@ -28,11 +31,13 @@ model Zonals{
   id String @id @default(uuid())
   zonalCode String 
   zonalName String
-  pbsCode String
+  pbsCode String 
+  pbs PBS @relation(fields: [pbsCode], references: [pbsCode])
   model Model[]
   brand Brand[]
   user User[]
-  pbs PBS @relation(fields: [pbsCode], references: [id])
+  capitalItem CapitalItem[]
+  revenueItem RevenueItem[]
   substation Substation[]
   complainCenter ComplainCenter[]
   createdAt DateTime @default(now())
@@ -46,6 +51,8 @@ model Substation{
   model Model[]
   brand Brand[]
   user User[]
+  capitalItem CapitalItem[]
+  revenueItem RevenueItem[]
   zonalCode String
   zonals Zonals @relation(fields: [zonalCode], references: [id])
   pbsCode String
@@ -62,6 +69,8 @@ model ComplainCenter{
   model Model[]
   brand Brand[]
   user User[]
+  capitalItem CapitalItem[]
+  revenueItem RevenueItem[]
   zonals Zonals @relation(fields: [zonalCode], references: [id])
   pbsCode String
   pbs PBS @relation(fields: [pbsCode], references: [id])
@@ -83,6 +92,8 @@ model User{
   complainCode String
   complainCenter ComplainCenter @relation(fields: [complainCode], references: [id])
   employeeId Employee[]
+  capitalItem CapitalItem[]
+  revenueItem RevenueItem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("users")
@@ -159,6 +170,8 @@ model ItemType{
   itemType String
   category Category[]
   subCategory SubCategory[]
+  capitalItem CapitalItem[]
+  revenueItem RevenueItem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("item_type")
@@ -168,8 +181,10 @@ model Category{
   id String @id @default(uuid())
   categoryName String
   itemTypeId String
+  capitalItem CapitalItem[]
   itemType ItemType @relation(fields: [itemTypeId], references: [id])
   subCategory SubCategory[]
+  revenueItem RevenueItem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("category")
@@ -181,12 +196,12 @@ model SubCategory{
   itemType ItemType @relation(fields: [itemTypeId], references: [id])
   categoryId String
   category Category @relation(fields: [categoryId], references: [id])
+  capitalItem CapitalItem[]
+  revenueItem RevenueItem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("sub_category")
 }
-
-
 
 model CapitalItem{
   id String @id @default(uuid())
@@ -198,18 +213,30 @@ model CapitalItem{
   purchaseNate String
   price String
   warranty String
-  pbsNode String
-  zonalCode String
-  itemType String
-  category String
-  subCategory String
-  assignTo String
   identificationNo String
-  supplier String
   status String
-  issueBy String
-  approveBy String
-  receiveBy String
+  pbsCode String
+  pbs PBS @relation(fields: [pbsCode], references: [id])
+  zonalCode String
+  zonals Zonals @relation(fields: [zonalCode], references: [id])
+  complainId String
+  complainCenter ComplainCenter @relation(fields: [complainId], references: [id])
+  substationId String
+  substation Substation @relation(fields: [substationId], references: [id])
+  itemTypeId String
+  itemType ItemType @relation(fields: [itemTypeId], references: [id])
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  subCategoryid String
+  subCategory SubCategory @relation(fields: [subCategoryid], references: [id])
+  assignTo String
+  user User @relation(fields: [assignTo], references: [id])
+  supplierId String
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+  issueById String
+  approveById String
+  receiveById String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("capital_item")
@@ -224,37 +251,46 @@ model RevenueItem{
   purchaseNate String
   Price String
   warranty String
-  pbsNode String
-  zonalNode String
-  itemType String
-  category String
-  subCategory String
+  status String 
+  pbsCode String
+  pbs PBS @relation(fields: [pbsCode], references: [id])
+  zonalCode String
+  zonals Zonals @relation(fields: [zonalCode], references: [id])
+  complainId String
+  complainCenter ComplainCenter @relation(fields: [complainId], references: [id])
+  substationId String
+  substation Substation @relation(fields: [substationId], references: [id])
+  itemTypeId String
+  itemType ItemType @relation(fields: [itemTypeId], references: [id])
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  subCategoryid String
+  subCategory SubCategory @relation(fields: [subCategoryid], references: [id])
   assignTo String
-  supplier String
-  status String
-  issueBy String
-  approveBy String
-  receiveBy String
+  user User @relation(fields: [assignTo], references: [id])
+  supplierId String
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+  issueById String
+  approveById String
+  receiveById String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("revenue_item")
 }
 
-
-
-model Survicing{
+model Supplier{
   id String @id @default(uuid())
-  identificationNo String
-  itemType String
-  category String
-  subCategory String
-  cost String
-  supplier String
-  survicingDate String
-  supervisedBy String
+  name String
+  address String
+  phone String
+  pbsCode String
+  pbs PBS @relation(fields: [pbsCode], references: [id])
+  capitalItem CapitalItem[]
+  revenueItem RevenueItem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  @@map("survicing")
+  @@map("suppliers")
 }
 
 model Role{
@@ -269,6 +305,19 @@ model Role{
   updatedAt DateTime @updatedAt
   @@map("role")
 }
-
+model Survicing{
+  id String @id @default(uuid())
+  identificationNo String
+  itemType String
+  category String
+  subCategory String
+  cost String
+  supplier String
+  survicingDate String
+  supervisedBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("survicing")
+}
 
 

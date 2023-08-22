@@ -2,15 +2,18 @@ import { z } from 'zod';
 
 const create = z.object({
   body: z.object({
-    pbsCode: z.string({
-      required_error: 'Year is required',
+    zonalCode: z.string({
+      required_error: 'zonal code is required',
     }),
-    pbsName: z.string({
-      required_error: 'Title is required',
+    zonalName: z.string({
+      required_error: 'zonal name is required',
+    }),
+    pbsCode: z.string({
+      required_error: 'pbs code is required',
     }),
   }),
 });
 
-export const PbsValidation = {
+export const ZonalValidation = {
   create,
 };

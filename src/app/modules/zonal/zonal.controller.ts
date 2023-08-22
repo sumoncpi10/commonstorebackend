@@ -1,31 +1,31 @@
-import { PBS } from '@prisma/client';
+import { Zonals } from '@prisma/client';
 import { RequestHandler } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
-import { pbsFilterableFields } from './pbs.constrant';
-import { PbsService } from './pbs.service';
+import { zonalFilterableFields } from './zonal.constrant';
+import { ZonalService } from './zonal.service';
 
 const insertIntoDB: RequestHandler = catchAsync(async (req, res) => {
-  const result = await PbsService.inertIntoDB(req.body);
-  sendResponse<PBS>(res, {
+  const result = await ZonalService.inertIntoDB(req.body);
+  sendResponse<Zonals>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'PBS Created Successfully',
+    message: 'Zonal Created Successfully',
     data: result,
   });
 });
 
 const getAllFromDB = catchAsync(async (req, res) => {
-  const filters = pick(req.query, pbsFilterableFields);
+  const filters = pick(req.query, zonalFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
-  const result = await PbsService.getAllFromDB(filters, options);
+  const result = await ZonalService.getAllFromDB(filters, options);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'PBS data fatched',
+    message: 'zonal data fatched',
     meta: result.meta,
     data: result.data,
   });
@@ -33,16 +33,16 @@ const getAllFromDB = catchAsync(async (req, res) => {
 
 const getDataById = catchAsync(async (req, res) => {
   const id = req.params.id;
-  const result = await PbsService.getDataById(id);
+  const result = await ZonalService.getDataById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'PBS data fatched',
+    message: 'zonal data fatched',
     data: result,
   });
 });
 
-export const PbsController = {
+export const ZonalController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,

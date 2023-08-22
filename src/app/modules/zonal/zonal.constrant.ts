@@ -1,3 +1,3 @@
-export const pbsSearchableFields = ['pbsCode', 'pbsName'];
+export const zonalSearchableFields = ['zonalCode', 'zonalName'];
 
-export const pbsFilterableFields = ['searchTerm', 'pbsCode', 'pbsName'];
+export const zonalFilterableFields = ['searchTerm', 'zonalCode', 'zonalName'];

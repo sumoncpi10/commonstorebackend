@@ -1,3 +1,3 @@
-export type pbsFilterRequest = {
+export type zonalFilterRequest = {
   searchTerm?: string;
 };
