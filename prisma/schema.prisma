@@ -77,7 +77,6 @@ model User{
   mobileNo String @unique
   password String
   role String
-
   pbsCode String
   pbs PBS @relation(fields: [pbsCode], references: [pbsCode])
   zonalCode String

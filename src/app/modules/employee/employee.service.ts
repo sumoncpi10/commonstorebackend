@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Prisma, Zonals } from '@prisma/client';
+import { Employee, Prisma } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { zonalSearchableFields } from './zonal.constrant';
-import { zonalFilterRequest } from './zonal.interface';
+import { employeeSearchableFields } from './employee.constrant';
+import { employeeFilterRequest } from './employee.interface';
 
-const inertIntoDB = async (zonalData: Zonals): Promise<Zonals> => {
-  const result = prisma.zonals.create({
-    data: zonalData,
+const inertIntoDB = async (data: Employee): Promise<Employee> => {
+  const result = prisma.employee.create({
+    data: data,
   });
   return result;
 };
 
 const getAllFromDB = async (
-  filters: zonalFilterRequest,
+  filters: employeeFilterRequest,
   options: IPaginationOptions
-): Promise<IGenericResponse<Zonals[]>> => {
+): Promise<IGenericResponse<Employee[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
   console.log(options);
@@ -26,7 +26,7 @@ const getAllFromDB = async (
   const andConditions = [];
   if (searchTerm) {
     andConditions.push({
-      OR: zonalSearchableFields.map(field => ({
+      OR: employeeSearchableFields.map(field => ({
         [field]: {
           contains: searchTerm,
           mode: 'insensitive',
@@ -45,9 +45,9 @@ const getAllFromDB = async (
     });
   }
 
-  const whereCondition: Prisma.ZonalsWhereInput =
+  const whereCondition: Prisma.EmployeeWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
-  const result = await prisma.zonals.findMany({
+  const result = await prisma.employee.findMany({
     where: whereCondition,
     skip,
     take: limit,
@@ -60,7 +60,7 @@ const getAllFromDB = async (
             createdAt: 'desc',
           },
   });
-  const total = await prisma.zonals.count();
+  const total = await prisma.employee.count();
   return {
     meta: {
       total,
@@ -71,8 +71,8 @@ const getAllFromDB = async (
   };
 };
 
-const getDataById = async (id: string): Promise<Zonals | null> => {
-  const result = await prisma.zonals.findUnique({
+const getDataById = async (id: string): Promise<Employee | null> => {
+  const result = await prisma.employee.findUnique({
     where: {
       id: id,
     },
@@ -80,7 +80,7 @@ const getDataById = async (id: string): Promise<Zonals | null> => {
   return result;
 };
 
-export const ZonalService = {
+export const EmployeeService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
