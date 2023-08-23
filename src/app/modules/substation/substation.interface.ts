@@ -1,3 +1,3 @@
-export type zonalFilterRequest = {
+export type substationFilterRequest = {
   searchTerm?: string;
 };

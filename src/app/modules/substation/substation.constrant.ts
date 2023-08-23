@@ -1,3 +1,7 @@
-export const zonalSearchableFields = ['zonalCode', 'zonalName'];
+export const substationSearchableFields = ['substationCode', 'substationName'];
 
-export const zonalFilterableFields = ['searchTerm', 'zonalCode', 'zonalName'];
+export const substaionFilterableFields = [
+  'searchTerm',
+  'substationCode',
+  'substationName',
+];

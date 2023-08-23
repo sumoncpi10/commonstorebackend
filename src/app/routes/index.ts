@@ -1,6 +1,7 @@
 import express from 'express';
 import { ComplainRoutes } from '../modules/complain/complain.route';
 import { PbsRoutes } from '../modules/pbs/pbs.routes';
+import { SubstationRoutes } from '../modules/substation/substation.route';
 import { ZonalRoutes } from '../modules/zonal/zonal.route';
 
 const router = express.Router();
@@ -20,8 +21,8 @@ const moduleRoutes = [
     route: ComplainRoutes,
   },
   {
-    path: '/zonal',
-    route: ZonalRoutes,
+    path: '/substation',
+    route: SubstationRoutes,
   },
   {
     path: '/zonal',
