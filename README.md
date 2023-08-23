@@ -16,3 +16,9 @@ http://localhost:5000/api/v1/user/<br>
 Employee:<br>
 http://localhost:5000/api/v1/employee/create-employee<br>
 http://localhost:5000/api/v1/employee/<br>
+Brand:<br>
+http://localhost:5000/api/v1/brand/create-brand<br>
+http://localhost:5000/api/v1/brand/<br>
+Model:<br>
+http://localhost:5000/api/v1/model/create-model<br>
+http://localhost:5000/api/v1/model/<br>

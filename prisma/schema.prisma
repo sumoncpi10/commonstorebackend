@@ -193,9 +193,9 @@ model Brand{
 model Model{
   id String @id @default(uuid())
   modelName String
+  brandId String
   revenueItem RevenueItem[]
   capitalItem CapitalItem[]
-  brandId String
   brand Brand @relation(fields: [brandId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

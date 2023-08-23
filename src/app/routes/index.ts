@@ -1,6 +1,8 @@
 import express from 'express';
+import { BrandRoutes } from '../modules/brand/brand.route';
 import { ComplainRoutes } from '../modules/complain/complain.route';
 import { EmployeeRoutes } from '../modules/employee/employee.route';
+import { ModelRoutes } from '../modules/model/model.route';
 import { PbsRoutes } from '../modules/pbs/pbs.routes';
 import { SubstationRoutes } from '../modules/substation/substation.route';
 import { UserRoutes } from '../modules/user/user.route';
@@ -35,12 +37,12 @@ const moduleRoutes = [
     route: EmployeeRoutes,
   },
   {
-    path: '/zonal',
-    route: ZonalRoutes,
+    path: '/brand',
+    route: BrandRoutes,
   },
   {
-    path: '/zonal',
-    route: ZonalRoutes,
+    path: '/model',
+    route: ModelRoutes,
   },
   {
     path: '/zonal',
