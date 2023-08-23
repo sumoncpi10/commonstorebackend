@@ -1,10 +1,15 @@
 import express from 'express';
 import { BrandRoutes } from '../modules/brand/brand.route';
+import { CapitalItemRoutes } from '../modules/capitalitem/capitalitem.route';
+import { CategoryRoutes } from '../modules/category/category.route';
 import { ComplainRoutes } from '../modules/complain/complain.route';
 import { EmployeeRoutes } from '../modules/employee/employee.route';
+import { ItemTypeRoutes } from '../modules/itemtype/item.type.route';
 import { ModelRoutes } from '../modules/model/model.route';
 import { PbsRoutes } from '../modules/pbs/pbs.routes';
+import { SubCategoryRoutes } from '../modules/subcatagory/subcategory.route';
 import { SubstationRoutes } from '../modules/substation/substation.route';
+import { SupplierRoutes } from '../modules/supplier/supplier.route';
 import { UserRoutes } from '../modules/user/user.route';
 import { ZonalRoutes } from '../modules/zonal/zonal.route';
 
@@ -45,8 +50,24 @@ const moduleRoutes = [
     route: ModelRoutes,
   },
   {
-    path: '/zonal',
-    route: ZonalRoutes,
+    path: '/item-type',
+    route: ItemTypeRoutes,
+  },
+  {
+    path: '/category',
+    route: CategoryRoutes,
+  },
+  {
+    path: '/sub-category',
+    route: SubCategoryRoutes,
+  },
+  {
+    path: '/supplier',
+    route: SupplierRoutes,
+  },
+  {
+    path: '/capital-item',
+    route: CapitalItemRoutes,
   },
 ];
 
