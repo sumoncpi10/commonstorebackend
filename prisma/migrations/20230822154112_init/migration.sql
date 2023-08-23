@@ -274,7 +274,7 @@ CREATE UNIQUE INDEX "pbs_pbsCode_key" ON "pbs"("pbsCode");
 CREATE UNIQUE INDEX "employees_userInfoId_key" ON "employees"("userInfoId");
 
 -- AddForeignKey
-ALTER TABLE "zonals" ADD CONSTRAINT "zonals_pbsCode_fkey" FOREIGN KEY ("pbsCode") REFERENCES "pbs"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "zonals" ADD CONSTRAINT "zonals_pbsCode_fkey" FOREIGN KEY ("pbsCode") REFERENCES "pbs"("pbsCode") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "substations" ADD CONSTRAINT "substations_zonalCode_fkey" FOREIGN KEY ("zonalCode") REFERENCES "zonals"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

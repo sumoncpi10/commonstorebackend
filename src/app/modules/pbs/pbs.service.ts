@@ -79,8 +79,18 @@ const getDataById = async (id: string): Promise<PBS | null> => {
   });
   return result;
 };
+
+const singleDeleteFromDB = async (id: string): Promise<PBS | null> => {
+  const result = await prisma.pBS.delete({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
 export const PbsService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
+  singleDeleteFromDB,
 };

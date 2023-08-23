@@ -1,4 +1,5 @@
 import express from 'express';
+import { ComplainRoutes } from '../modules/complain/complain.route';
 import { PbsRoutes } from '../modules/pbs/pbs.routes';
 import { ZonalRoutes } from '../modules/zonal/zonal.route';
 
@@ -9,6 +10,34 @@ const moduleRoutes = [
   {
     path: '/pbs',
     route: PbsRoutes,
+  },
+  {
+    path: '/zonal',
+    route: ZonalRoutes,
+  },
+  {
+    path: '/complain',
+    route: ComplainRoutes,
+  },
+  {
+    path: '/zonal',
+    route: ZonalRoutes,
+  },
+  {
+    path: '/zonal',
+    route: ZonalRoutes,
+  },
+  {
+    path: '/zonal',
+    route: ZonalRoutes,
+  },
+  {
+    path: '/zonal',
+    route: ZonalRoutes,
+  },
+  {
+    path: '/zonal',
+    route: ZonalRoutes,
   },
   {
     path: '/zonal',

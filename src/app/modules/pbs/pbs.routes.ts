@@ -9,6 +9,8 @@ router.post(
   validateRequest(PbsValidation.create),
   PbsController.insertIntoDB
 );
+router.delete('/:id', PbsController.singleDeleteFromDB);
 router.get('/', PbsController.getAllFromDB);
 router.get('/:id', PbsController.getDataById);
+
 export const PbsRoutes = router;

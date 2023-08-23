@@ -8,9 +8,6 @@ const create = z.object({
     zonalName: z.string({
       required_error: 'zonal name is required',
     }),
-    pbsCode: z.string({
-      required_error: 'pbs code is required',
-    }),
   }),
 });
 

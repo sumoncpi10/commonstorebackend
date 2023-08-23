@@ -42,8 +42,20 @@ const getDataById = catchAsync(async (req, res) => {
   });
 });
 
+const singleDeleteFromDB = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const result = await PbsService.singleDeleteFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Deleted Successfully',
+    data: result,
+  });
+});
+
 export const PbsController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,
+  singleDeleteFromDB,
 };
