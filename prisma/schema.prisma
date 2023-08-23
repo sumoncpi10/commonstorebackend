@@ -14,6 +14,7 @@ model PBS{
   id String @id @default(uuid())
   pbsCode String  @unique
   pbsName String 
+  
   zonals Zonals[]
   substation Substation[]
   complainCenter ComplainCenter[]
