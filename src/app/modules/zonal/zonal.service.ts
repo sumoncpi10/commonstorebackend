@@ -17,7 +17,8 @@ const inertIntoDB = async (zonalData: Zonals): Promise<Zonals> => {
 
 const getAllFromDB = async (
   filters: zonalFilterRequest,
-  options: IPaginationOptions
+  options: IPaginationOptions,
+  pbsCode: string
 ): Promise<IGenericResponse<Zonals[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
@@ -48,7 +49,10 @@ const getAllFromDB = async (
   const whereCondition: Prisma.ZonalsWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   const result = await prisma.zonals.findMany({
-    where: whereCondition,
+    where: {
+      ...whereCondition,
+      pbsCode: pbsCode,
+    },
     skip,
     take: limit,
     orderBy:
@@ -59,7 +63,11 @@ const getAllFromDB = async (
         : {
             createdAt: 'desc',
           },
+    include: {
+      pbs: true,
+    },
   });
+
   const total = await prisma.zonals.count();
   return {
     meta: {

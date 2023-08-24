@@ -3,6 +3,8 @@ import { BrandRoutes } from '../modules/brand/brand.route';
 import { CapitalItemRoutes } from '../modules/capitalitem/capitalitem.route';
 import { CategoryRoutes } from '../modules/category/category.route';
 import { ComplainRoutes } from '../modules/complain/complain.route';
+import { DepartmentRoutes } from '../modules/department/department.route';
+import { DesignationRoutes } from '../modules/designation/designation.route';
 import { EmployeeRoutes } from '../modules/employee/employee.route';
 import { ItemTypeRoutes } from '../modules/itemtype/item.type.route';
 import { ModelRoutes } from '../modules/model/model.route';
@@ -64,6 +66,18 @@ const moduleRoutes = [
   {
     path: '/supplier',
     route: SupplierRoutes,
+  },
+  {
+    path: '/capital-item',
+    route: CapitalItemRoutes,
+  },
+  {
+    path: '/department',
+    route: DepartmentRoutes,
+  },
+  {
+    path: '/designation',
+    route: DesignationRoutes,
   },
   {
     path: '/capital-item',

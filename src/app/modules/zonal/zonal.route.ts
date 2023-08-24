@@ -9,7 +9,7 @@ router.post(
   validateRequest(ZonalValidation.create),
   ZonalController.insertIntoDB
 );
-router.get('/', ZonalController.getAllFromDB);
+router.get('/:pbsCode', ZonalController.getAllFromDB);
 router.get('/:id', ZonalController.getDataById);
 
 export const ZonalRoutes = router;

@@ -49,3 +49,11 @@ http://localhost:5000/api/v1/supplier/<br>
 Capital-Item:<br>
 http://localhost:5000/api/v1/capital-item/create-capital-item<br>
 http://localhost:5000/api/v1/capital-item/<br>
+
+Department:<br>
+http://localhost:5000/api/v1/department/create-department<br>
+http://localhost:5000/api/v1/department/<br>
+
+Designation:<br>
+http://localhost:5000/api/v1/designation/designation<br>
+http://localhost:5000/api/v1/designation/<br>

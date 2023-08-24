@@ -51,6 +51,9 @@ const getAllFromDB = async (
     where: whereCondition,
     skip,
     take: limit,
+    include: {
+      pbs: true,
+    },
     orderBy:
       options.sortBy && options.sortOrder
         ? {
