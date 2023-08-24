@@ -10,6 +10,9 @@ const create = zod_1.z.object({
         zonalName: zod_1.z.string({
             required_error: 'zonal name is required',
         }),
+        pbsCode: zod_1.z.string({
+            required_error: 'pbs code is required',
+        }),
     }),
 });
 exports.ZonalValidation = {

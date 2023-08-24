@@ -24,13 +24,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PbsService = void 0;
+exports.ModelService = void 0;
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
-const pbs_constrant_1 = require("./pbs.constrant");
-const inertIntoDB = (pbsData) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = prisma_1.default.pBS.create({
-        data: pbsData,
+const model_constrant_1 = require("./model.constrant");
+const inertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = prisma_1.default.model.create({
+        data: data,
     });
     return result;
 });
@@ -42,7 +42,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
     const andConditions = [];
     if (searchTerm) {
         andConditions.push({
-            OR: pbs_constrant_1.pbsSearchableFields.map(field => ({
+            OR: model_constrant_1.modelSearchableFields.map(field => ({
                 [field]: {
                     contains: searchTerm,
                     mode: 'insensitive',
@@ -60,7 +60,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
         });
     }
     const whereCondition = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = yield prisma_1.default.pBS.findMany({
+    const result = yield prisma_1.default.model.findMany({
         where: whereCondition,
         skip,
         take: limit,
@@ -72,7 +72,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
                 createdAt: 'desc',
             },
     });
-    const total = yield prisma_1.default.pBS.count();
+    const total = yield prisma_1.default.model.count();
     return {
         meta: {
             total,
@@ -83,24 +83,15 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
     };
 });
 const getDataById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.pBS.findUnique({
+    const result = yield prisma_1.default.model.findUnique({
         where: {
             id: id,
         },
     });
     return result;
 });
-const singleDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.pBS.delete({
-        where: {
-            id: id,
-        },
-    });
-    return result;
-});
-exports.PbsService = {
+exports.ModelService = {
     inertIntoDB,
     getAllFromDB,
     getDataById,
-    singleDeleteFromDB,
 };

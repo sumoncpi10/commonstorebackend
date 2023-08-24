@@ -160,26 +160,26 @@ CREATE TABLE "capital_item" (
     "name" TEXT NOT NULL,
     "serialNo" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "purchaseNate" TEXT NOT NULL,
+    "purchasedate" TEXT NOT NULL,
     "price" TEXT NOT NULL,
     "warranty" TEXT NOT NULL,
     "identificationNo" TEXT NOT NULL,
     "status" TEXT NOT NULL,
-    "modelId" TEXT NOT NULL,
-    "brandId" TEXT NOT NULL,
-    "pbsCode" TEXT NOT NULL,
-    "zonalCode" TEXT NOT NULL,
-    "complainCode" TEXT NOT NULL,
-    "substationCode" TEXT NOT NULL,
-    "itemTypeId" TEXT NOT NULL,
-    "categoryId" TEXT NOT NULL,
-    "subCategoryid" TEXT NOT NULL,
-    "issueByMobileNo" TEXT NOT NULL,
-    "assignToMobileNo" TEXT NOT NULL,
+    "modelId" TEXT,
+    "brandId" TEXT,
+    "pbsCode" TEXT,
+    "zonalCode" TEXT,
+    "complainCode" TEXT,
+    "substationCode" TEXT,
+    "itemTypeId" TEXT,
+    "categoryId" TEXT,
+    "subCategoryid" TEXT,
+    "issueByMobileNo" TEXT,
+    "assignToMobileNo" TEXT,
     "approveByMobleNo" TEXT NOT NULL,
-    "receivedByMobileNo" TEXT NOT NULL,
-    "addByMobileNo" TEXT NOT NULL,
-    "supplierId" TEXT NOT NULL,
+    "receivedByMobileNo" TEXT,
+    "addByMobileNo" TEXT,
+    "supplierId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -296,49 +296,49 @@ ALTER TABLE "sub_category" ADD CONSTRAINT "sub_category_categoryId_fkey" FOREIGN
 ALTER TABLE "models" ADD CONSTRAINT "models_brandId_fkey" FOREIGN KEY ("brandId") REFERENCES "brands"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_modelId_fkey" FOREIGN KEY ("modelId") REFERENCES "models"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_modelId_fkey" FOREIGN KEY ("modelId") REFERENCES "models"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_brandId_fkey" FOREIGN KEY ("brandId") REFERENCES "brands"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_brandId_fkey" FOREIGN KEY ("brandId") REFERENCES "brands"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_pbsCode_fkey" FOREIGN KEY ("pbsCode") REFERENCES "pbs"("pbsCode") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_pbsCode_fkey" FOREIGN KEY ("pbsCode") REFERENCES "pbs"("pbsCode") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_zonalCode_fkey" FOREIGN KEY ("zonalCode") REFERENCES "zonals"("zonalCode") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_zonalCode_fkey" FOREIGN KEY ("zonalCode") REFERENCES "zonals"("zonalCode") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_complainCode_fkey" FOREIGN KEY ("complainCode") REFERENCES "complain_center"("complainCode") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_complainCode_fkey" FOREIGN KEY ("complainCode") REFERENCES "complain_center"("complainCode") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_substationCode_fkey" FOREIGN KEY ("substationCode") REFERENCES "substations"("substationCode") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_substationCode_fkey" FOREIGN KEY ("substationCode") REFERENCES "substations"("substationCode") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_itemTypeId_fkey" FOREIGN KEY ("itemTypeId") REFERENCES "item_type"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_itemTypeId_fkey" FOREIGN KEY ("itemTypeId") REFERENCES "item_type"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_subCategoryid_fkey" FOREIGN KEY ("subCategoryid") REFERENCES "sub_category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_subCategoryid_fkey" FOREIGN KEY ("subCategoryid") REFERENCES "sub_category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_issueByMobileNo_fkey" FOREIGN KEY ("issueByMobileNo") REFERENCES "users"("mobileNo") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_issueByMobileNo_fkey" FOREIGN KEY ("issueByMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_assignToMobileNo_fkey" FOREIGN KEY ("assignToMobileNo") REFERENCES "users"("mobileNo") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_assignToMobileNo_fkey" FOREIGN KEY ("assignToMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_approveByMobleNo_fkey" FOREIGN KEY ("approveByMobleNo") REFERENCES "users"("mobileNo") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_receivedByMobileNo_fkey" FOREIGN KEY ("receivedByMobileNo") REFERENCES "users"("mobileNo") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_receivedByMobileNo_fkey" FOREIGN KEY ("receivedByMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_addByMobileNo_fkey" FOREIGN KEY ("addByMobileNo") REFERENCES "users"("mobileNo") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_addByMobileNo_fkey" FOREIGN KEY ("addByMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "suppliers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "suppliers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "revenue_item" ADD CONSTRAINT "revenue_item_modelId_fkey" FOREIGN KEY ("modelId") REFERENCES "models"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
