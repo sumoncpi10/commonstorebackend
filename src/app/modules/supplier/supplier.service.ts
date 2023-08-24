@@ -14,7 +14,7 @@ const inertIntoDB = async (data: Supplier): Promise<Supplier> => {
   });
   return result;
 };
-
+// get all supplier
 const getAllFromDB = async (
   filters: supplierFilterRequest,
   options: IPaginationOptions
@@ -80,8 +80,18 @@ const getDataById = async (id: string): Promise<Supplier | null> => {
   return result;
 };
 
+const deleteById = async (id: string): Promise<Supplier | null> => {
+  const result = await prisma.supplier.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
+
 export const SupplierService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
+  deleteById,
 };
