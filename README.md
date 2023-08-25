@@ -39,7 +39,7 @@ https://computer-management-system.onrender.com/api/v1/category/create-category<
 https://computer-management-system.onrender.com/api/v1/category/<br>
 
 Sub-Category:<br>
-https://computer-management-system.onrender.com/api/v1/sub-category/sub-create-category<br>
+https://computer-management-system.onrender.com/api/v1/sub-category/create-sub-category<br>
 https://computer-management-system.onrender.com/api/v1/sub-category/<br>
 
 Supplier:<br>

@@ -79,12 +79,12 @@ model User{
   role String
   pbsCode String
   pbs PBS @relation(fields: [pbsCode], references: [pbsCode])
-  zonalCode String
-  zonals Zonals @relation(fields: [zonalCode], references: [zonalCode])
-  substationCode String
-  substation Substation @relation(fields: [substationCode], references: [substationCode])
-  complainCode String
-  complainCenter ComplainCenter @relation(fields: [complainCode], references: [complainCode])
+  zonalCode String?
+  zonals Zonals? @relation(fields: [zonalCode], references: [zonalCode])
+  substationCode String?
+  substation Substation? @relation(fields: [substationCode], references: [substationCode])
+  complainCode String?
+  complainCenter ComplainCenter? @relation(fields: [complainCode], references: [complainCode])
   
   employee Employee?
   issueByCapital CapitalItem[] @relation("issueByCapital")
