@@ -4,7 +4,7 @@ https://computer-management-system.onrender.com/api/v1/pbs/<br>
 
 zonal:<br>
 https://computer-management-system.onrender.com/api/v1/zonal/create-zonal<br>
-https://computer-management-system.onrender.com/api/v1/zonal/<br>
+https://computer-management-system.onrender.com/api/v1/zonal/35<br>
 
 complain:<br>
 https://computer-management-system.onrender.com/api/v1/complain/create-complain<br>
