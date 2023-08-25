@@ -13,9 +13,7 @@ const create = zod_1.z.object({
         pbsCode: zod_1.z.string({
             required_error: 'pbsCode code is required',
         }),
-        zonalCode: zod_1.z.string({
-            required_error: 'zonalCode code is required',
-        }),
+        zonalCode: zod_1.z.string().optional(),
         substationCode: zod_1.z.string().optional(),
         complainCode: zod_1.z.string().optional(),
     }),
