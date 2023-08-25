@@ -12,7 +12,7 @@ const insertIntoDB: RequestHandler = catchAsync(async (req, res) => {
   sendResponse<Model>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Zonal Created Successfully',
+    message: 'Model Created Successfully',
     data: result,
   });
 });
