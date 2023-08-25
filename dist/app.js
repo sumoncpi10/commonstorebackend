@@ -33,3 +33,4 @@ app.use((req, res, next) => {
     next();
 });
 exports.default = app;
+// "main": "src/server.ts",
