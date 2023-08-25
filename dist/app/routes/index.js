@@ -8,6 +8,8 @@ const brand_route_1 = require("../modules/brand/brand.route");
 const capitalitem_route_1 = require("../modules/capitalitem/capitalitem.route");
 const category_route_1 = require("../modules/category/category.route");
 const complain_route_1 = require("../modules/complain/complain.route");
+const department_route_1 = require("../modules/department/department.route");
+const designation_route_1 = require("../modules/designation/designation.route");
 const employee_route_1 = require("../modules/employee/employee.route");
 const item_type_route_1 = require("../modules/itemtype/item.type.route");
 const model_route_1 = require("../modules/model/model.route");
@@ -67,6 +69,18 @@ const moduleRoutes = [
     {
         path: '/supplier',
         route: supplier_route_1.SupplierRoutes,
+    },
+    {
+        path: '/capital-item',
+        route: capitalitem_route_1.CapitalItemRoutes,
+    },
+    {
+        path: '/department',
+        route: department_route_1.DepartmentRoutes,
+    },
+    {
+        path: '/designation',
+        route: designation_route_1.DesignationRoutes,
     },
     {
         path: '/capital-item',

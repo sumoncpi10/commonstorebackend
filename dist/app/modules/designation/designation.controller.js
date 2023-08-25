@@ -12,46 +12,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ZonalController = void 0;
+exports.DesignationController = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const pick_1 = __importDefault(require("../../../shared/pick"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
-const zonal_constrant_1 = require("./zonal.constrant");
-const zonal_service_1 = require("./zonal.service");
+const designation_constrant_1 = require("./designation.constrant");
+const designation_service_1 = require("./designation.service");
 const insertIntoDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield zonal_service_1.ZonalService.inertIntoDB(req.body);
+    const result = yield designation_service_1.DesignationService.inertIntoDB(req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Zonal Created Successfully',
+        message: 'Designation Created Successfully',
         data: result,
     });
 }));
 const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const pbsCode = req.params.pbsCode;
-    const filters = (0, pick_1.default)(req.query, zonal_constrant_1.zonalFilterableFields);
+    const filters = (0, pick_1.default)(req.query, designation_constrant_1.designationFilterableFields);
     const options = (0, pick_1.default)(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-    const result = yield zonal_service_1.ZonalService.getAllFromDB(filters, options, pbsCode);
+    const result = yield designation_service_1.DesignationService.getAllFromDB(filters, options);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'zonal data fatched',
+        message: 'Designation data fatched',
         meta: result.meta,
         data: result.data,
     });
 }));
 const getDataById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const result = yield zonal_service_1.ZonalService.getDataById(id);
+    const result = yield designation_service_1.DesignationService.getDataById(id);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'zonal data fatched',
+        message: 'Designation data fatched',
         data: result,
     });
 }));
-exports.ZonalController = {
+exports.DesignationController = {
     insertIntoDB,
     getAllFromDB,
     getDataById,

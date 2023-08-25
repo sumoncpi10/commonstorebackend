@@ -24,12 +24,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubstationService = void 0;
+exports.DesignationService = void 0;
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
-const substation_constrant_1 = require("./substation.constrant");
+const designation_constrant_1 = require("./designation.constrant");
 const inertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = prisma_1.default.substation.create({
+    const result = prisma_1.default.designation.create({
         data: data,
     });
     return result;
@@ -42,7 +42,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
     const andConditions = [];
     if (searchTerm) {
         andConditions.push({
-            OR: substation_constrant_1.substationSearchableFields.map(field => ({
+            OR: designation_constrant_1.designationSearchableFields.map(field => ({
                 [field]: {
                     contains: searchTerm,
                     mode: 'insensitive',
@@ -60,11 +60,11 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
         });
     }
     const whereCondition = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = yield prisma_1.default.substation.findMany({
+    const result = yield prisma_1.default.designation.findMany({
         where: whereCondition,
         skip,
         take: limit,
-        include: { pbs: true, zonals: true },
+        include: { department: true },
         orderBy: options.sortBy && options.sortOrder
             ? {
                 [options.sortBy]: options.sortOrder,
@@ -73,7 +73,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
                 createdAt: 'desc',
             },
     });
-    const total = yield prisma_1.default.substation.count();
+    const total = yield prisma_1.default.designation.count();
     return {
         meta: {
             total,
@@ -84,14 +84,14 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
     };
 });
 const getDataById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.substation.findUnique({
+    const result = yield prisma_1.default.designation.findUnique({
         where: {
             id: id,
         },
     });
     return result;
 });
-exports.SubstationService = {
+exports.DesignationService = {
     inertIntoDB,
     getAllFromDB,
     getDataById,

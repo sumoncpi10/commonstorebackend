@@ -34,6 +34,7 @@ const inertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return result;
 });
+// get all supplier
 const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, limit, skip } = paginationHelper_1.paginationHelpers.calculatePagination(options);
     // eslint-disable-next-line no-unused-vars
@@ -64,6 +65,9 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
         where: whereCondition,
         skip,
         take: limit,
+        include: {
+            pbs: true,
+        },
         orderBy: options.sortBy && options.sortOrder
             ? {
                 [options.sortBy]: options.sortOrder,
@@ -90,8 +94,17 @@ const getDataById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return result;
 });
+const deleteById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.supplier.findUnique({
+        where: {
+            id: id,
+        },
+    });
+    return result;
+});
 exports.SupplierService = {
     inertIntoDB,
     getAllFromDB,
     getDataById,
+    deleteById,
 };
