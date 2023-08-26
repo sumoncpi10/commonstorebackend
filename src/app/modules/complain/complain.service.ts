@@ -17,7 +17,8 @@ const inertIntoDB = async (data: ComplainCenter): Promise<ComplainCenter> => {
 
 const getAllFromDB = async (
   filters: complainFilterRequest,
-  options: IPaginationOptions
+  options: IPaginationOptions,
+  pbsCode: string
 ): Promise<IGenericResponse<ComplainCenter[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
@@ -48,7 +49,10 @@ const getAllFromDB = async (
   const whereCondition: Prisma.ComplainCenterWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   const result = await prisma.complainCenter.findMany({
-    where: whereCondition,
+    where: {
+      ...whereCondition,
+      pbsCode: pbsCode,
+    },
     skip,
     take: limit,
     include: { pbs: true, zonals: true },

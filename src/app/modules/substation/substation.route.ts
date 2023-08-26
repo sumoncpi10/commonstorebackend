@@ -9,7 +9,7 @@ router.post(
   validateRequest(SubstationValidation.create),
   SubstationController.insertIntoDB
 );
-router.get('/', SubstationController.getAllFromDB);
-router.get('/:substationCode', SubstationController.getDataById);
+router.get('/:pbsCode', SubstationController.getAllFromDB);
+router.get('substation/:substationCode', SubstationController.getDataById);
 
 export const SubstationRoutes = router;

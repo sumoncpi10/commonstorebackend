@@ -29,9 +29,10 @@ const insertIntoDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
     });
 }));
 const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const pbsCode = req.params.pbsCode;
     const filters = (0, pick_1.default)(req.query, substation_constrant_1.substaionFilterableFields);
     const options = (0, pick_1.default)(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-    const result = yield substation_service_1.SubstationService.getAllFromDB(filters, options);
+    const result = yield substation_service_1.SubstationService.getAllFromDB(filters, options, pbsCode);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

@@ -9,7 +9,7 @@ router.post(
   validateRequest(ComplainValidation.create),
   ComplainController.insertIntoDB
 );
-router.get('/', ComplainController.getAllFromDB);
-router.get('/:complainCode', ComplainController.getDataById);
+router.get('/:pbsCode', ComplainController.getAllFromDB);
+router.get('complain/:complainCode', ComplainController.getDataById);
 
 export const ComplainRoutes = router;

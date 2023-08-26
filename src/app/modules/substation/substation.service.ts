@@ -17,11 +17,11 @@ const inertIntoDB = async (data: Substation): Promise<Substation> => {
 
 const getAllFromDB = async (
   filters: substationFilterRequest,
-  options: IPaginationOptions
+  options: IPaginationOptions,
+  pbsCode: string
 ): Promise<IGenericResponse<Substation[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
-  console.log(options);
   const { searchTerm, ...filtersData } = filters;
   const andConditions = [];
   if (searchTerm) {
@@ -48,7 +48,10 @@ const getAllFromDB = async (
   const whereCondition: Prisma.SubstationWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   const result = await prisma.substation.findMany({
-    where: whereCondition,
+    where: {
+      ...whereCondition,
+      pbsCode: pbsCode,
+    },
     skip,
     take: limit,
     include: { pbs: true, zonals: true },

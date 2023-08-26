@@ -18,10 +18,11 @@ const insertIntoDB: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllFromDB = catchAsync(async (req, res) => {
+  const pbsCode = req.params.pbsCode;
   const filters = pick(req.query, complainFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
-  const result = await ComplainService.getAllFromDB(filters, options);
+  const result = await ComplainService.getAllFromDB(filters, options,pbsCode);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

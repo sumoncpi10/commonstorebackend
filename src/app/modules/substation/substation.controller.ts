@@ -18,10 +18,15 @@ const insertIntoDB: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllFromDB = catchAsync(async (req, res) => {
+  const pbsCode = req.params.pbsCode;
   const filters = pick(req.query, substaionFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
-  const result = await SubstationService.getAllFromDB(filters, options);
+  const result = await SubstationService.getAllFromDB(
+    filters,
+    options,
+    pbsCode
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

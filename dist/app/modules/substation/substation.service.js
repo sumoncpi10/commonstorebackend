@@ -34,10 +34,9 @@ const inertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return result;
 });
-const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllFromDB = (filters, options, pbsCode) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, limit, skip } = paginationHelper_1.paginationHelpers.calculatePagination(options);
     // eslint-disable-next-line no-unused-vars
-    console.log(options);
     const { searchTerm } = filters, filtersData = __rest(filters, ["searchTerm"]);
     const andConditions = [];
     if (searchTerm) {
@@ -61,7 +60,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
     }
     const whereCondition = andConditions.length > 0 ? { AND: andConditions } : {};
     const result = yield prisma_1.default.substation.findMany({
-        where: whereCondition,
+        where: Object.assign(Object.assign({}, whereCondition), { pbsCode: pbsCode }),
         skip,
         take: limit,
         include: { pbs: true, zonals: true },
