@@ -210,7 +210,6 @@ model CapitalItem{
   warranty String
   identificationNo String @unique
   status String
-
   modelId String?
   model Model? @relation(fields: [modelId], references: [id])
   brandId String?

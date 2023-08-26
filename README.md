@@ -19,7 +19,8 @@ https://computer-management-system.onrender.com/api/v1/substation/substation/350
 
 User:<br>
 https://computer-management-system.onrender.com/api/v1/user/create-user<br>
-https://computer-management-system.onrender.com/api/v1/user/<br>
+https://computer-management-system.onrender.com/api/v1/user/35<br>
+https://computer-management-system.onrender.com/api/v1/user/user/01793047162<br>
 
 Employee:<br>
 https://computer-management-system.onrender.com/api/v1/employee/create-employee<br>
