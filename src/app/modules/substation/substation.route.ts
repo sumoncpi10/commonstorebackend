@@ -10,6 +10,6 @@ router.post(
   SubstationController.insertIntoDB
 );
 router.get('/', SubstationController.getAllFromDB);
-router.get('/:id', SubstationController.getDataById);
+router.get('/:substationCode', SubstationController.getDataById);
 
 export const SubstationRoutes = router;

@@ -10,6 +10,6 @@ router.post(
   UserController.insertIntoDB
 );
 router.get('/', UserController.getAllFromDB);
-router.get('/:id', UserController.getDataById);
+router.get('/:mobileNo', UserController.getDataById);
 
 export const UserRoutes = router;

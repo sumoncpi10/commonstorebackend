@@ -79,10 +79,10 @@ const getAllFromDB = async (
   };
 };
 
-const getDataById = async (id: string): Promise<Zonals | null> => {
+const getDataById = async (zonalCode: string): Promise<Zonals | null> => {
   const result = await prisma.zonals.findUnique({
     where: {
-      id: id,
+      zonalCode: zonalCode,
     },
   });
   return result;

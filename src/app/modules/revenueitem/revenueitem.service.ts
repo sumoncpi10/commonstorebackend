@@ -1,32 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Prisma, Zonals } from '@prisma/client';
+import { Prisma, RevenueItem } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { zonalSearchableFields } from './zonal.constrant';
-import { zonalFilterRequest } from './zonal.interface';
+import { RevenueItemSearchableFields } from './revenueitem.constrant';
+import { RevenueItemFilterRequest } from './revenueitem.interface';
 
-const inertIntoDB = async (zonalData: Zonals): Promise<Zonals> => {
-  const result = prisma.zonals.create({
-    data: zonalData,
+const inertIntoDB = async (data: RevenueItem): Promise<RevenueItem> => {
+  const result = prisma.revenueItem.create({
+    data: data,
   });
   return result;
 };
 
 const getAllFromDB = async (
-  filters: zonalFilterRequest,
+  filters: RevenueItemFilterRequest,
   options: IPaginationOptions
-): Promise<IGenericResponse<Zonals[]>> => {
+): Promise<IGenericResponse<RevenueItem[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
-  console.log(options);
+
   const { searchTerm, ...filtersData } = filters;
   const andConditions = [];
   if (searchTerm) {
     andConditions.push({
-      OR: zonalSearchableFields.map(field => ({
+      OR: RevenueItemSearchableFields.map(field => ({
         [field]: {
           contains: searchTerm,
           mode: 'insensitive',
@@ -45,12 +45,28 @@ const getAllFromDB = async (
     });
   }
 
-  const whereCondition: Prisma.ZonalsWhereInput =
+  const whereCondition: Prisma.RevenueItemWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
-  const result = await prisma.zonals.findMany({
+  const result = await prisma.revenueItem.findMany({
     where: whereCondition,
     skip,
     take: limit,
+    include: {
+      model: true,
+      brand: true,
+      pbs: true,
+      zonals: true,
+      complainCenter: true,
+      substation: true,
+      itemType: true,
+      category: true,
+      subCategory: true,
+      supplier: true,
+      issueBy: true,
+      addBy: true,
+      approveBy: true,
+      assignTo: true,
+    },
     orderBy:
       options.sortBy && options.sortOrder
         ? {
@@ -60,7 +76,7 @@ const getAllFromDB = async (
             createdAt: 'desc',
           },
   });
-  const total = await prisma.zonals.count();
+  const total = await prisma.revenueItem.count();
   return {
     meta: {
       total,
@@ -71,8 +87,8 @@ const getAllFromDB = async (
   };
 };
 
-const getDataById = async (id: string): Promise<Zonals | null> => {
-  const result = await prisma.zonals.findUnique({
+const getDataById = async (id: string): Promise<RevenueItem | null> => {
+  const result = await prisma.revenueItem.findUnique({
     where: {
       id: id,
     },
@@ -80,7 +96,7 @@ const getDataById = async (id: string): Promise<Zonals | null> => {
   return result;
 };
 
-export const ZonalService = {
+export const RevenueItemService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,

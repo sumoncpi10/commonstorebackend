@@ -9,6 +9,7 @@ import { EmployeeRoutes } from '../modules/employee/employee.route';
 import { ItemTypeRoutes } from '../modules/itemtype/item.type.route';
 import { ModelRoutes } from '../modules/model/model.route';
 import { PbsRoutes } from '../modules/pbs/pbs.routes';
+import { RevenueRoutes } from '../modules/revenueitem/revenueitem.route';
 import { SubCategoryRoutes } from '../modules/subcatagory/subcategory.route';
 import { SubstationRoutes } from '../modules/substation/substation.route';
 import { SupplierRoutes } from '../modules/supplier/supplier.route';
@@ -82,6 +83,10 @@ const moduleRoutes = [
   {
     path: '/capital-item',
     route: CapitalItemRoutes,
+  },
+  {
+    path: '/revenue-item',
+    route: RevenueRoutes,
   },
 ];
 

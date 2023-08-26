@@ -1,12 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CapitalItemValidation = void 0;
+exports.RevenueItemValidation = void 0;
 const zod_1 = require("zod");
 const create = zod_1.z.object({
     body: zod_1.z.object({
-        serialNo: zod_1.z.string({
-            required_error: 'serialNo  is required',
-        }),
+        serialNo: zod_1.z.string().optional(),
         description: zod_1.z.string({
             required_error: 'description is required',
         }),
@@ -19,14 +17,12 @@ const create = zod_1.z.object({
         warranty: zod_1.z.string({
             required_error: 'warranty is required',
         }),
-        identificationNo: zod_1.z.string({
-            required_error: 'identificationNo is required',
-        }),
+        identificationNo: zod_1.z.string().optional(),
         status: zod_1.z.string({
             required_error: 'status is required',
         }),
     }),
 });
-exports.CapitalItemValidation = {
+exports.RevenueItemValidation = {
     create,
 };

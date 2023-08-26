@@ -14,6 +14,7 @@ const employee_route_1 = require("../modules/employee/employee.route");
 const item_type_route_1 = require("../modules/itemtype/item.type.route");
 const model_route_1 = require("../modules/model/model.route");
 const pbs_routes_1 = require("../modules/pbs/pbs.routes");
+const revenueitem_route_1 = require("../modules/revenueitem/revenueitem.route");
 const subcategory_route_1 = require("../modules/subcatagory/subcategory.route");
 const substation_route_1 = require("../modules/substation/substation.route");
 const supplier_route_1 = require("../modules/supplier/supplier.route");
@@ -85,6 +86,10 @@ const moduleRoutes = [
     {
         path: '/capital-item',
         route: capitalitem_route_1.CapitalItemRoutes,
+    },
+    {
+        path: '/revenue-item',
+        route: revenueitem_route_1.RevenueRoutes,
     },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));

@@ -10,6 +10,6 @@ router.post(
   ComplainController.insertIntoDB
 );
 router.get('/', ComplainController.getAllFromDB);
-router.get('/:id', ComplainController.getDataById);
+router.get('/:complainCode', ComplainController.getDataById);
 
 export const ComplainRoutes = router;

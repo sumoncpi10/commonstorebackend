@@ -82,18 +82,18 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
         data: result,
     };
 });
-const getDataById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const getDataById = (pbsCode) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.pBS.findUnique({
         where: {
-            id: id,
+            pbsCode: pbsCode,
         },
     });
     return result;
 });
-const singleDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const singleDeleteFromDB = (pbsCode) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.pBS.delete({
         where: {
-            id: id,
+            pbsCode: pbsCode,
         },
     });
     return result;

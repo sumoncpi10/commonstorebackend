@@ -72,10 +72,12 @@ const getAllFromDB = async (
   };
 };
 
-const getDataById = async (id: string): Promise<Substation | null> => {
+const getDataById = async (
+  substationCode: string
+): Promise<Substation | null> => {
   const result = await prisma.substation.findUnique({
     where: {
-      id: id,
+      substationCode: substationCode,
     },
   });
   return result;

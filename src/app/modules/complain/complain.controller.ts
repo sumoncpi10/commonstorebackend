@@ -32,8 +32,8 @@ const getAllFromDB = catchAsync(async (req, res) => {
 });
 
 const getDataById = catchAsync(async (req, res) => {
-  const id = req.params.id;
-  const result = await ComplainService.getDataById(id);
+  const complainCode = req.params.complainCode;
+  const result = await ComplainService.getDataById(complainCode);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

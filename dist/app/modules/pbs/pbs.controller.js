@@ -41,8 +41,8 @@ const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
     });
 }));
 const getDataById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
-    const result = yield pbs_service_1.PbsService.getDataById(id);
+    const pbsCode = req.params.pbsCode;
+    const result = yield pbs_service_1.PbsService.getDataById(pbsCode);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -51,8 +51,8 @@ const getDataById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
     });
 }));
 const singleDeleteFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
-    const result = yield pbs_service_1.PbsService.singleDeleteFromDB(id);
+    const pbsCode = req.params.pbsCode;
+    const result = yield pbs_service_1.PbsService.singleDeleteFromDB(pbsCode);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

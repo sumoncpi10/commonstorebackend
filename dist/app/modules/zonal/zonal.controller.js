@@ -42,8 +42,8 @@ const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
     });
 }));
 const getDataById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
-    const result = yield zonal_service_1.ZonalService.getDataById(id);
+    const zonalCode = req.params.zonalCode;
+    const result = yield zonal_service_1.ZonalService.getDataById(zonalCode);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

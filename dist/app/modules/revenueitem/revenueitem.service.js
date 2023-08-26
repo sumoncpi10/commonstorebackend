@@ -24,25 +24,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ZonalService = void 0;
+exports.RevenueItemService = void 0;
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
-const zonal_constrant_1 = require("./zonal.constrant");
-const inertIntoDB = (zonalData) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = prisma_1.default.zonals.create({
-        data: zonalData,
+const revenueitem_constrant_1 = require("./revenueitem.constrant");
+const inertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = prisma_1.default.revenueItem.create({
+        data: data,
     });
     return result;
 });
 const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, limit, skip } = paginationHelper_1.paginationHelpers.calculatePagination(options);
     // eslint-disable-next-line no-unused-vars
-    console.log(options);
     const { searchTerm } = filters, filtersData = __rest(filters, ["searchTerm"]);
     const andConditions = [];
     if (searchTerm) {
         andConditions.push({
-            OR: zonal_constrant_1.zonalSearchableFields.map(field => ({
+            OR: revenueitem_constrant_1.RevenueItemSearchableFields.map(field => ({
                 [field]: {
                     contains: searchTerm,
                     mode: 'insensitive',
@@ -60,10 +59,26 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
         });
     }
     const whereCondition = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = yield prisma_1.default.zonals.findMany({
+    const result = yield prisma_1.default.revenueItem.findMany({
         where: whereCondition,
         skip,
         take: limit,
+        include: {
+            model: true,
+            brand: true,
+            pbs: true,
+            zonals: true,
+            complainCenter: true,
+            substation: true,
+            itemType: true,
+            category: true,
+            subCategory: true,
+            supplier: true,
+            issueBy: true,
+            addBy: true,
+            approveBy: true,
+            assignTo: true,
+        },
         orderBy: options.sortBy && options.sortOrder
             ? {
                 [options.sortBy]: options.sortOrder,
@@ -72,7 +87,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
                 createdAt: 'desc',
             },
     });
-    const total = yield prisma_1.default.zonals.count();
+    const total = yield prisma_1.default.revenueItem.count();
     return {
         meta: {
             total,
@@ -83,14 +98,14 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
     };
 });
 const getDataById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.zonals.findUnique({
+    const result = yield prisma_1.default.revenueItem.findUnique({
         where: {
             id: id,
         },
     });
     return result;
 });
-exports.ZonalService = {
+exports.RevenueItemService = {
     inertIntoDB,
     getAllFromDB,
     getDataById,

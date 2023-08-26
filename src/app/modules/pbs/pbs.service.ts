@@ -71,19 +71,19 @@ const getAllFromDB = async (
   };
 };
 
-const getDataById = async (id: string): Promise<PBS | null> => {
+const getDataById = async (pbsCode: string): Promise<PBS | null> => {
   const result = await prisma.pBS.findUnique({
     where: {
-      id: id,
+      pbsCode: pbsCode,
     },
   });
   return result;
 };
 
-const singleDeleteFromDB = async (id: string): Promise<PBS | null> => {
+const singleDeleteFromDB = async (pbsCode: string): Promise<PBS | null> => {
   const result = await prisma.pBS.delete({
     where: {
-      id: id,
+      pbsCode: pbsCode,
     },
   });
   return result;

@@ -85,10 +85,10 @@ const getAllFromDB = (filters, options, pbsCode) => __awaiter(void 0, void 0, vo
         data: result,
     };
 });
-const getDataById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const getDataById = (zonalCode) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.zonals.findUnique({
         where: {
-            id: id,
+            zonalCode: zonalCode,
         },
     });
     return result;

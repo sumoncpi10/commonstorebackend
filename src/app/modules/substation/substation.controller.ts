@@ -32,8 +32,8 @@ const getAllFromDB = catchAsync(async (req, res) => {
 });
 
 const getDataById = catchAsync(async (req, res) => {
-  const id = req.params.id;
-  const result = await SubstationService.getDataById(id);
+  const substationCode = req.params.substationCode;
+  const result = await SubstationService.getDataById(substationCode);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

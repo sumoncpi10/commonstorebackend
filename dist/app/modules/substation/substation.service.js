@@ -83,10 +83,10 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
         data: result,
     };
 });
-const getDataById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const getDataById = (substationCode) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.substation.findUnique({
         where: {
-            id: id,
+            substationCode: substationCode,
         },
     });
     return result;

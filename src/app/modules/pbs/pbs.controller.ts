@@ -32,8 +32,8 @@ const getAllFromDB = catchAsync(async (req, res) => {
 });
 
 const getDataById = catchAsync(async (req, res) => {
-  const id = req.params.id;
-  const result = await PbsService.getDataById(id);
+  const pbsCode = req.params.pbsCode;
+  const result = await PbsService.getDataById(pbsCode);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -43,8 +43,8 @@ const getDataById = catchAsync(async (req, res) => {
 });
 
 const singleDeleteFromDB = catchAsync(async (req, res) => {
-  const id = req.params.id;
-  const result = await PbsService.singleDeleteFromDB(id);
+  const pbsCode = req.params.pbsCode;
+  const result = await PbsService.singleDeleteFromDB(pbsCode);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -33,8 +33,8 @@ const getAllFromDB = catchAsync(async (req, res) => {
 });
 
 const getDataById = catchAsync(async (req, res) => {
-  const id = req.params.id;
-  const result = await ZonalService.getDataById(id);
+  const zonalCode = req.params.zonalCode;
+  const result = await ZonalService.getDataById(zonalCode);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

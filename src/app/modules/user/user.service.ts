@@ -78,10 +78,10 @@ const getAllFromDB = async (
   };
 };
 
-const getDataById = async (id: string): Promise<User | null> => {
+const getDataById = async (mobileNo: string): Promise<User | null> => {
   const result = await prisma.user.findUnique({
     where: {
-      id: id,
+      mobileNo: mobileNo,
     },
   });
   return result;
