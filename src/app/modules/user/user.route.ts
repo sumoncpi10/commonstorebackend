@@ -11,5 +11,10 @@ router.post(
 );
 router.get('/:pbsCode', UserController.getAllFromDB);
 router.get('/user/:mobileNo', UserController.getDataById);
+router.patch(
+  '/:mobileNo',
+  validateRequest(UserValidation.update),
+  UserController.updateIntoDB
+);
 
 export const UserRoutes = router;

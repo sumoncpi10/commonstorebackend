@@ -17,7 +17,8 @@ const inertIntoDB = async (data: CapitalItem): Promise<CapitalItem> => {
 
 const getAllFromDB = async (
   filters: capitalItemFilterRequest,
-  options: IPaginationOptions
+  options: IPaginationOptions,
+  pbsCode: string
 ): Promise<IGenericResponse<CapitalItem[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
@@ -48,7 +49,10 @@ const getAllFromDB = async (
   const whereCondition: Prisma.CapitalItemWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   const result = await prisma.capitalItem.findMany({
-    where: whereCondition,
+    where: {
+      ...whereCondition,
+      pbsCode: pbsCode,
+    },
     skip,
     take: limit,
     include: {
@@ -95,9 +99,21 @@ const getDataById = async (id: string): Promise<CapitalItem | null> => {
   });
   return result;
 };
-
+const updateIntoDB = async (
+  id: string,
+  payload: Partial<CapitalItem>
+): Promise<CapitalItem> => {
+  const result = await prisma.capitalItem.update({
+    where: {
+      id: id,
+    },
+    data: payload,
+  });
+  return result;
+};
 export const CapitalItemService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

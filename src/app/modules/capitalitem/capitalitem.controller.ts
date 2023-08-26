@@ -18,10 +18,15 @@ const insertIntoDB: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllFromDB = catchAsync(async (req, res) => {
+  const pbsCode = req.params.id;
   const filters = pick(req.query, capitalItemFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
-  const result = await CapitalItemService.getAllFromDB(filters, options);
+  const result = await CapitalItemService.getAllFromDB(
+    filters,
+    options,
+    pbsCode
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -41,9 +46,20 @@ const getDataById = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+const updateIntoDB = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const payload = req.body;
+  const result = await CapitalItemService.updateIntoDB(id, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Capital item Updated Successfully',
+    data: result,
+  });
+});
 export const CapitalItemController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

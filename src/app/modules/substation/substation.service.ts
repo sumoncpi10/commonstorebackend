@@ -85,9 +85,21 @@ const getDataById = async (
   });
   return result;
 };
-
+const updateIntoDB = async (
+  substationCode: string,
+  payload: Partial<Substation>
+): Promise<Substation> => {
+  const result = await prisma.substation.update({
+    where: {
+      substationCode: substationCode,
+    },
+    data: payload,
+  });
+  return result;
+};
 export const SubstationService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

@@ -10,6 +10,11 @@ router.post(
   ComplainController.insertIntoDB
 );
 router.get('/:pbsCode', ComplainController.getAllFromDB);
-router.get('complain/:complainCode', ComplainController.getDataById);
+router.patch(
+  '/:complainCode',
+  validateRequest(ComplainValidation.update),
+  ComplainController.getAllFromDB
+);
+router.get('/complain/:complainCode', ComplainController.getDataById);
 
 export const ComplainRoutes = router;

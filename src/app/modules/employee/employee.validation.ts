@@ -27,7 +27,20 @@ const create = z.object({
     }),
   }),
 });
+const update = z.object({
+  body: z.object({
+    name: z.string().optional(),
+    designation: z.string().optional(),
+    phone: z.string().optional(),
+    address: z.string().optional(),
+    trgId: z.string().optional(),
+    photoUrl: z.string().optional(),
+    signUrl: z.string().optional(),
+    mobileNo: z.string().optional(),
+  }),
+});
 
 export const EmployeeValidation = {
   create,
+  update,
 };

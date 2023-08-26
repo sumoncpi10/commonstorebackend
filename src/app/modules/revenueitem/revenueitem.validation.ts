@@ -21,7 +21,18 @@ const create = z.object({
     }),
   }),
 });
-
+const update = z.object({
+  body: z.object({
+    serialNo: z.string().optional(),
+    description: z.string().optional(),
+    purchasedate: z.string().optional(),
+    price: z.string().optional(),
+    warranty: z.string().optional(),
+    identificationNo: z.string().optional(),
+    status: z.string().optional(),
+  }),
+});
 export const RevenueItemValidation = {
   create,
+  update,
 };

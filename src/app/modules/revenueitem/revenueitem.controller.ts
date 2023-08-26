@@ -18,10 +18,15 @@ const insertIntoDB: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllFromDB = catchAsync(async (req, res) => {
+  const pbsCode = req.params.pbsCode;
   const filters = pick(req.query, RevenueItemFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
-  const result = await RevenueItemService.getAllFromDB(filters, options);
+  const result = await RevenueItemService.getAllFromDB(
+    filters,
+    options,
+    pbsCode
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -41,9 +46,20 @@ const getDataById = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+const updateIntoDB = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const payload = req.body;
+  const result = await RevenueItemService.updateIntoDB(id, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Revenue item Updated Successfully',
+    data: result,
+  });
+});
 export const RevenueItemController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

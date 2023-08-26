@@ -16,7 +16,16 @@ const create = z.object({
     }),
   }),
 });
+const update = z.object({
+  body: z.object({
+    substationCode: z.string().optional(),
+    substationName: z.string().optional(),
+    pbsCode: z.string().optional(),
+    zonalCode: z.string().optional(),
+  }),
+});
 
 export const SubstationValidation = {
   create,
+  update,
 };

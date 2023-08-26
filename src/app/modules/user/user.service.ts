@@ -90,9 +90,21 @@ const getDataById = async (mobileNo: string): Promise<User | null> => {
   });
   return result;
 };
-
+const updateIntoDB = async (
+  mobileNo: string,
+  payload: Partial<User>
+): Promise<User> => {
+  const result = await prisma.user.update({
+    where: {
+      mobileNo: mobileNo,
+    },
+    data: payload,
+  });
+  return result;
+};
 export const UserService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

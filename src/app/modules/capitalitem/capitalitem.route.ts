@@ -9,7 +9,11 @@ router.post(
   validateRequest(CapitalItemValidation.create),
   CapitalItemController.insertIntoDB
 );
-router.get('/', CapitalItemController.getAllFromDB);
-router.get('/:id', CapitalItemController.getDataById);
-
+router.get('/:pbsCode', CapitalItemController.getAllFromDB);
+router.get('/capital/:id', CapitalItemController.getDataById);
+router.patch(
+  '/:id',
+  validateRequest(CapitalItemValidation.update),
+  CapitalItemController.updateIntoDB
+);
 export const CapitalItemRoutes = router;

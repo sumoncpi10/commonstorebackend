@@ -46,9 +46,20 @@ const getDataById = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+const updateIntoDB = catchAsync(async (req, res) => {
+  const { substationCode } = req.params;
+  const payload = req.body;
+  const result = await SubstationService.updateIntoDB(substationCode, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'substation Updated Successfully',
+    data: result,
+  });
+});
 export const SubstationController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

@@ -17,7 +17,8 @@ const inertIntoDB = async (data: RevenueItem): Promise<RevenueItem> => {
 
 const getAllFromDB = async (
   filters: RevenueItemFilterRequest,
-  options: IPaginationOptions
+  options: IPaginationOptions,
+  pbsCode: string
 ): Promise<IGenericResponse<RevenueItem[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
@@ -48,7 +49,10 @@ const getAllFromDB = async (
   const whereCondition: Prisma.RevenueItemWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   const result = await prisma.revenueItem.findMany({
-    where: whereCondition,
+    where: {
+      ...whereCondition,
+      pbsCode: pbsCode,
+    },
     skip,
     take: limit,
     include: {
@@ -95,9 +99,21 @@ const getDataById = async (id: string): Promise<RevenueItem | null> => {
   });
   return result;
 };
-
+const updateIntoDB = async (
+  id: string,
+  payload: Partial<RevenueItem>
+): Promise<RevenueItem> => {
+  const result = await prisma.revenueItem.update({
+    where: {
+      id: id,
+    },
+    data: payload,
+  });
+  return result;
+};
 export const RevenueItemService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

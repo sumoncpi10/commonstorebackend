@@ -10,7 +10,14 @@ const create = z.object({
     }),
   }),
 });
+const update = z.object({
+  body: z.object({
+    complainName: z.string().optional(),
+    complainCode: z.string().optional(),
+  }),
+});
 
 export const ComplainValidation = {
   create,
+  update,
 };

@@ -9,7 +9,11 @@ router.post(
   validateRequest(RevenueItemValidation.create),
   RevenueItemController.insertIntoDB
 );
-router.get('/', RevenueItemController.getAllFromDB);
-router.get('/:id', RevenueItemController.getDataById);
-
+router.get('/:pbsCode', RevenueItemController.getAllFromDB);
+router.get('/revenue/:id', RevenueItemController.getDataById);
+router.patch(
+  '/:id',
+  validateRequest(RevenueItemValidation.update),
+  RevenueItemController.updateIntoDB
+);
 export const RevenueRoutes = router;

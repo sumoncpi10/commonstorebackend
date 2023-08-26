@@ -17,7 +17,8 @@ const inertIntoDB = async (data: Supplier): Promise<Supplier> => {
 // get all supplier
 const getAllFromDB = async (
   filters: supplierFilterRequest,
-  options: IPaginationOptions
+  options: IPaginationOptions,
+  pbsCode: string
 ): Promise<IGenericResponse<Supplier[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
@@ -48,7 +49,10 @@ const getAllFromDB = async (
   const whereCondition: Prisma.SupplierWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   const result = await prisma.supplier.findMany({
-    where: whereCondition,
+    where: {
+      ...whereCondition,
+      pbsCode: pbsCode,
+    },
     skip,
     take: limit,
     include: {
@@ -91,10 +95,22 @@ const deleteById = async (id: string): Promise<Supplier | null> => {
   });
   return result;
 };
-
+const updateIntoDB = async (
+  id: string,
+  payload: Partial<Supplier>
+): Promise<Supplier> => {
+  const result = await prisma.supplier.update({
+    where: {
+      id: id,
+    },
+    data: payload,
+  });
+  return result;
+};
 export const SupplierService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
   deleteById,
+  updateIntoDB,
 };

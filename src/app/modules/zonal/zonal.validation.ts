@@ -10,7 +10,14 @@ const create = z.object({
     }),
   }),
 });
+const update = z.object({
+  body: z.object({
+    zonalCode: z.string().optional(),
+    zonalName: z.string().optional(),
+  }),
+});
 
 export const ZonalValidation = {
   create,
+  update,
 };

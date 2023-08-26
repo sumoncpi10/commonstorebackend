@@ -13,7 +13,15 @@ const create = z.object({
     }),
   }),
 });
+const update = z.object({
+  body: z.object({
+    name: z.string().optional(),
+    address: z.string().optional(),
+    phone: z.string().optional(),
+  }),
+});
 
 export const SupplierValidation = {
   create,
+  update,
 };

@@ -41,9 +41,20 @@ const getDataById = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+const updateIntoDB = catchAsync(async (req, res) => {
+  const { mobileNo } = req.params;
+  const payload = req.body;
+  const result = await EmployeeService.updateIntoDB(mobileNo, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Employee Updated Successfully',
+    data: result,
+  });
+});
 export const EmployeeController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

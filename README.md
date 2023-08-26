@@ -10,7 +10,7 @@ https://computer-management-system.onrender.com/api/v1/zonal/zonal/3501<br>
 complain:<br>
 https://computer-management-system.onrender.com/api/v1/complain/create-complain<br>
 https://computer-management-system.onrender.com/api/v1/complain/35<br>
-https://computer-management-system.onrender.com/api/v1/complain/complain/3501<br>
+https://computer-management-system.onrender.com/api/v1/complain/complain/350101<br>
 
 substation:<br>
 https://computer-management-system.onrender.com/api/v1/substation/create-substation<br>
@@ -48,11 +48,18 @@ https://computer-management-system.onrender.com/api/v1/sub-category/<br>
 
 Supplier:<br>
 https://computer-management-system.onrender.com/api/v1/supplier/create-supplier<br>
-https://computer-management-system.onrender.com/api/v1/supplier/<br>
+https://computer-management-system.onrender.com/api/v1/supplier/35<br>
+https://computer-management-system.onrender.com/supplier/supplier/0b741143-139d-4bac-be37-db80b6a6e204<br>
 
 Capital-Item:<br>
 https://computer-management-system.onrender.com/api/v1/capital-item/create-capital-item<br>
-https://computer-management-system.onrender.com/api/v1/capital-item/<br>
+https://computer-management-system.onrender.com/api/v1/capital-item/35<br>
+http://localhost:5000/api/v1/capital-item/capital/aca0e1bf-d0eb-4f9a-88a4-9b3de65ed6bd<br>
+
+Revenue-Item:<br>
+https://computer-management-system.onrender.com/api/v1/revenue-item/create-revenue-item<br>
+https://computer-management-system.onrender.com/api/v1/revenue-item/35<br>
+http://localhost:5000/api/v1/revenue-item/revenue/d1d9eee8-5b1b-4b04-9240-bab3e0923aed<br>
 
 Department:<br>
 https://computer-management-system.onrender.com/api/v1/department/create-department<br>

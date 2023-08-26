@@ -87,9 +87,22 @@ const getDataById = async (zonalCode: string): Promise<Zonals | null> => {
   });
   return result;
 };
+const updateIntoDB = async (
+  zonalCode: string,
+  payload: Partial<Zonals>
+): Promise<Zonals> => {
+  const result = await prisma.zonals.update({
+    where: {
+      zonalCode: zonalCode,
+    },
+    data: payload,
+  });
+  return result;
+};
 
 export const ZonalService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

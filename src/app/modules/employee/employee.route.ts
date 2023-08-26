@@ -11,5 +11,10 @@ router.post(
 );
 router.get('/', EmployeeController.getAllFromDB);
 router.get('/:id', EmployeeController.getDataById);
+router.patch(
+  '/:mobileNo',
+  validateRequest(EmployeeValidation.update),
+  EmployeeController.updateIntoDB
+);
 
 export const EmployeeRoutes = router;

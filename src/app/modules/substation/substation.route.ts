@@ -10,6 +10,10 @@ router.post(
   SubstationController.insertIntoDB
 );
 router.get('/:pbsCode', SubstationController.getAllFromDB);
-router.get('substation/:substationCode', SubstationController.getDataById);
-
+router.get('/substation/:substationCode', SubstationController.getDataById);
+router.patch(
+  '/:substationCode',
+  validateRequest(SubstationValidation.update),
+  SubstationController.updateIntoDB
+);
 export const SubstationRoutes = router;

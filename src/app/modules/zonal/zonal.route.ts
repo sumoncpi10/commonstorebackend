@@ -11,5 +11,10 @@ router.post(
 );
 router.get('/:pbsCode', ZonalController.getAllFromDB);
 router.get('/zonal/:zonalCode', ZonalController.getDataById);
+router.patch(
+  '/:zonalCode',
+  validateRequest(ZonalValidation.update),
+  ZonalController.updateIntoDB
+);
 
 export const ZonalRoutes = router;

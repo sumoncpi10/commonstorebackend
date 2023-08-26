@@ -16,7 +16,17 @@ const create = z.object({
     complainCode: z.string().optional(),
   }),
 });
-
+const update = z.object({
+  body: z.object({
+    mobileNo: z.string().optional(),
+    password: z.string().optional(),
+    pbsCode: z.string().optional(),
+    zonalCode: z.string().optional(),
+    substationCode: z.string().optional(),
+    complainCode: z.string().optional(),
+  }),
+});
 export const UserValidation = {
   create,
+  update,
 };

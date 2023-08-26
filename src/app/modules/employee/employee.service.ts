@@ -82,9 +82,21 @@ const getDataById = async (id: string): Promise<Employee | null> => {
   });
   return result;
 };
-
+const updateIntoDB = async (
+  mobileNo: string,
+  payload: Partial<Employee>
+): Promise<Employee> => {
+  const result = await prisma.employee.update({
+    where: {
+      mobileNo: mobileNo,
+    },
+    data: payload,
+  });
+  return result;
+};
 export const EmployeeService = {
   inertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };

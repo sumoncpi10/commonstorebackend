@@ -8,7 +8,11 @@ router.post(
   validateRequest(SupplierValidation.create),
   SupplierController.insertIntoDB
 );
-router.get('/', SupplierController.getAllFromDB);
-router.get('/:id', SupplierController.getDataById);
-
+router.get('/:pbsCode', SupplierController.getAllFromDB);
+router.get('/supplier/:id', SupplierController.getDataById);
+router.patch(
+  '/:id',
+  validateRequest(SupplierValidation.update),
+  SupplierController.updateIntoDB
+);
 export const SupplierRoutes = router;

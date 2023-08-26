@@ -42,9 +42,20 @@ const getDataById = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+const updateIntoDB = catchAsync(async (req, res) => {
+  const { zonalCode } = req.params;
+  const payload = req.body;
+  const result = await ZonalService.updateIntoDB(zonalCode, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Zonal Updated Successfully',
+    data: result,
+  });
+});
 export const ZonalController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,
+  updateIntoDB,
 };
