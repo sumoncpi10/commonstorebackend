@@ -1,42 +1,55 @@
 -- CreateTable
 CREATE TABLE "pbs" (
+    "id" TEXT NOT NULL,
     "pbsCode" TEXT NOT NULL,
     "pbsName" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "pbs_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "zonals" (
+    "id" TEXT NOT NULL,
     "zonalCode" TEXT NOT NULL,
     "zonalName" TEXT NOT NULL,
     "pbsCode" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "zonals_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "substations" (
+    "id" TEXT NOT NULL,
     "substationCode" TEXT NOT NULL,
     "substationName" TEXT NOT NULL,
     "pbsCode" TEXT NOT NULL,
     "zonalCode" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "substations_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "complain_center" (
+    "id" TEXT NOT NULL,
     "complainCode" TEXT NOT NULL,
     "complainName" TEXT NOT NULL,
     "pbsCode" TEXT NOT NULL,
     "zonalCode" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "complain_center_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "users" (
+    "id" TEXT NOT NULL,
     "mobileNo" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" TEXT NOT NULL,
@@ -45,7 +58,9 @@ CREATE TABLE "users" (
     "substationCode" TEXT,
     "complainCode" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable

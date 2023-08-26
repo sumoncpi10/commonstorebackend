@@ -17,7 +17,8 @@ const inertIntoDB = async (data: User): Promise<User> => {
 
 const getAllFromDB = async (
   filters: userFilterRequest,
-  options: IPaginationOptions
+  options: IPaginationOptions,
+  pbsCode: string
 ): Promise<IGenericResponse<User[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
@@ -48,7 +49,10 @@ const getAllFromDB = async (
   const whereCondition: Prisma.UserWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   const result = await prisma.user.findMany({
-    where: whereCondition,
+    where: {
+      ...whereCondition,
+      pbsCode: pbsCode,
+    },
     skip,
     take: limit,
     include: {

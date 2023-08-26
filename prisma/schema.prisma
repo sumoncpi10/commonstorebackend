@@ -77,7 +77,7 @@ model User{
   password String
   role String
   pbsCode String
-  pbs PBS? @relation(fields: [pbsCode], references: [pbsCode])
+  pbs PBS @relation(fields: [pbsCode], references: [pbsCode])
   zonalCode String?
   zonals Zonals? @relation(fields: [zonalCode], references: [zonalCode])
   substationCode String?

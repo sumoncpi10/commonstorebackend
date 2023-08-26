@@ -9,7 +9,7 @@ router.post(
   validateRequest(UserValidation.create),
   UserController.insertIntoDB
 );
-router.get('/', UserController.getAllFromDB);
-router.get('/:mobileNo', UserController.getDataById);
+router.get('/:pbsCode', UserController.getAllFromDB);
+router.get('/user/:mobileNo', UserController.getDataById);
 
 export const UserRoutes = router;
