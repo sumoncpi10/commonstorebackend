@@ -11,5 +11,5 @@ const zonal_validation_1 = require("./zonal.validation");
 const router = express_1.default.Router();
 router.post('/create-zonal', (0, validateRequest_1.default)(zonal_validation_1.ZonalValidation.create), zonal_controller_1.ZonalController.insertIntoDB);
 router.get('/:pbsCode', zonal_controller_1.ZonalController.getAllFromDB);
-router.get('/:zonalCode', zonal_controller_1.ZonalController.getDataById);
+router.get('zonal/:zonalCode', zonal_controller_1.ZonalController.getDataById);
 exports.ZonalRoutes = router;

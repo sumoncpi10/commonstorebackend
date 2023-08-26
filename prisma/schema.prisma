@@ -11,10 +11,9 @@ datasource db {
 }
 
 model PBS{
- 
+  id String @id @default(uuid())
   pbsCode String  @unique
   pbsName String 
-  
   zonals Zonals[]
   substation Substation[]
   complainCenter ComplainCenter[]
@@ -27,6 +26,7 @@ model PBS{
   @@map("pbs")
 }
 model Zonals{
+  id String @id @default(uuid())
   zonalCode String @unique
   zonalName String
   pbsCode String 
@@ -41,6 +41,7 @@ model Zonals{
   @@map("zonals")
 }
 model Substation{
+  id String @id @default(uuid())
   substationCode String @unique
   substationName String
 
@@ -56,6 +57,7 @@ model Substation{
   @@map("substations")
 }
 model ComplainCenter{
+  id String @id @default(uuid())
   complainCode String @unique
   complainName String
   pbsCode String
@@ -70,6 +72,7 @@ model ComplainCenter{
   @@map("complain_center")
 }
 model User{
+  id String @id @default(uuid())
   mobileNo String @unique
   password String
   role String
