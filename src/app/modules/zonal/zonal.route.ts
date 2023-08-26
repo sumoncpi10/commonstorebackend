@@ -10,6 +10,6 @@ router.post(
   ZonalController.insertIntoDB
 );
 router.get('/:pbsCode', ZonalController.getAllFromDB);
-router.get('zonal/:zonalCode', ZonalController.getDataById);
+router.get('/zonal/:zonalCode', ZonalController.getDataById);
 
 export const ZonalRoutes = router;
