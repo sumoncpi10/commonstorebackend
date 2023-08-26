@@ -1,18 +1,21 @@
 PBS:<br>
 https://computer-management-system.onrender.com/api/v1/pbs/create-pbs<br>
-https://computer-management-system.onrender.com/api/v1/pbs/<br>
+https://computer-management-system.onrender.com/api/v1/pbs/35<br>
 
 zonal:<br>
 https://computer-management-system.onrender.com/api/v1/zonal/create-zonal<br>
 https://computer-management-system.onrender.com/api/v1/zonal/35<br>
+https://computer-management-system.onrender.com/api/v1/zonal/zonal/3501<br>
 
 complain:<br>
 https://computer-management-system.onrender.com/api/v1/complain/create-complain<br>
-https://computer-management-system.onrender.com/api/v1/complain/<br>
+https://computer-management-system.onrender.com/api/v1/complain/35<br>
+https://computer-management-system.onrender.com/api/v1/complain/complain/3501<br>
 
 substation:<br>
 https://computer-management-system.onrender.com/api/v1/substation/create-substation<br>
-https://computer-management-system.onrender.com/api/v1/substation/<br>
+https://computer-management-system.onrender.com/api/v1/substation/35<br>
+https://computer-management-system.onrender.com/api/v1/substation/substation/3501<br>
 
 User:<br>
 https://computer-management-system.onrender.com/api/v1/user/create-user<br>
