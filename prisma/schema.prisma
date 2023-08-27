@@ -11,8 +11,7 @@ datasource db {
 }
 
 model PBS{
-  id String @id @default(uuid())
-  pbsCode String  @unique
+  pbsCode String  @id
   pbsName String 
   zonals Zonals[]
   substation Substation[]
@@ -26,8 +25,7 @@ model PBS{
   @@map("pbs")
 }
 model Zonals{
-  id String @id @default(uuid())
-  zonalCode String @unique
+  zonalCode String @id
   zonalName String
   pbsCode String 
   pbs PBS @relation(fields: [pbsCode], references: [pbsCode])
@@ -41,10 +39,8 @@ model Zonals{
   @@map("zonals")
 }
 model Substation{
-  id String @id @default(uuid())
-  substationCode String @unique
+  substationCode String @id
   substationName String
-
   pbsCode String
   pbs PBS @relation(fields: [pbsCode], references: [pbsCode])
   zonalCode String
@@ -57,8 +53,7 @@ model Substation{
   @@map("substations")
 }
 model ComplainCenter{
-  id String @id @default(uuid())
-  complainCode String @unique
+  complainCode String @id
   complainName String
   pbsCode String
   pbs PBS @relation(fields: [pbsCode], references: [pbsCode])
@@ -72,8 +67,7 @@ model ComplainCenter{
   @@map("complain_center")
 }
 model User{
-  id String @id @default(uuid())
-  mobileNo String @unique
+  mobileNo String @id
   password String
   role String
   pbsCode String
@@ -84,14 +78,12 @@ model User{
   substation Substation? @relation(fields: [substationCode], references: [substationCode])
   complainCode String?
   complainCenter ComplainCenter? @relation(fields: [complainCode], references: [complainCode])
-  
   employee Employee?
   issueByCapital CapitalItem[] @relation("issueByCapital")
   capitalItemAssignToCapital CapitalItem[] @relation("assignToCapital")
   capitalItemApproveByCapital CapitalItem[] @relation("approveByCapital")
   capitalItemReveivedByCapital CapitalItem[] @relation("reveivedByCapital")
   capitalItemAddByCapital CapitalItem[] @relation("addByCapital")
-
   revenueItemissueByRevenue RevenueItem[] @relation("issueByRevenue")
   revenueItemassignToRevenue RevenueItem[] @relation("assignToRevenue")
   revenueItemapproveByRevenue RevenueItem[] @relation("approveByRevenue")

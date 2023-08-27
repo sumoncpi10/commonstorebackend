@@ -1,4 +1,5 @@
 import express from 'express';
+import { AuthRoutes } from '../modules/auth/auth.route';
 import { BrandRoutes } from '../modules/brand/brand.route';
 import { CapitalItemRoutes } from '../modules/capitalitem/capitalitem.route';
 import { CategoryRoutes } from '../modules/category/category.route';
@@ -87,6 +88,10 @@ const moduleRoutes = [
   {
     path: '/revenue-item',
     route: RevenueRoutes,
+  },
+  {
+    path: '/auth',
+    route: AuthRoutes,
   },
 ];
 

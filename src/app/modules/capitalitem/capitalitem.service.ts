@@ -22,7 +22,7 @@ const getAllFromDB = async (
 ): Promise<IGenericResponse<CapitalItem[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
-  console.log(options);
+
   const { searchTerm, ...filtersData } = filters;
   const andConditions = [];
   if (searchTerm) {
