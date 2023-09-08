@@ -12,6 +12,7 @@ router.post(
   validateRequest(CapitalItemValidation.create),
   CapitalItemController.insertIntoDB
 );
+
 router.get(
   '/:pbsCode',
   auth(ADMIN, SUPER_ADMIN, USER),
@@ -27,5 +28,27 @@ router.patch(
   auth(ADMIN, SUPER_ADMIN),
   validateRequest(CapitalItemValidation.update),
   CapitalItemController.updateIntoDB
+);
+
+// today api
+router.post(
+  '/assign-capital-item/:id',
+  auth(ADMIN, SUPER_ADMIN),
+  CapitalItemController.insertAssignToDB
+);
+router.get(
+  '/not-assign/:pbsCode',
+  auth(ADMIN, SUPER_ADMIN),
+  CapitalItemController.getAllNotAssignFromDB
+);
+router.post(
+  '/approve-capital-item/:id',
+  auth(ADMIN, SUPER_ADMIN),
+  CapitalItemController.insertApproveToDB
+);
+router.get(
+  '/not-approve/:pbsCode',
+  auth(ADMIN, SUPER_ADMIN),
+  CapitalItemController.getAllNotApproveFromDB
 );
 export const CapitalItemRoutes = router;

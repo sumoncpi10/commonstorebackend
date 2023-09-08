@@ -35,6 +35,42 @@ const getAllFromDB = catchAsync(async (req, res) => {
     data: result.data,
   });
 });
+const getAllNotAssignFromDB = catchAsync(async (req, res) => {
+  const pbsCode = req.params.id;
+  const filters = pick(req.query, capitalItemFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+
+  const result = await CapitalItemService.getAllNotAssignFromDB(
+    filters,
+    options,
+    pbsCode
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Not Assign CapitalItem data fatched',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+const getAllNotApproveFromDB = catchAsync(async (req, res) => {
+  const pbsCode = req.params.id;
+  const filters = pick(req.query, capitalItemFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+
+  const result = await CapitalItemService.getAllNotApproveFromDB(
+    filters,
+    options,
+    pbsCode
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Not Approved CapitalItem data fatched',
+    meta: result.meta,
+    data: result.data,
+  });
+});
 
 const getDataById = catchAsync(async (req, res) => {
   const id = req.params.id;
@@ -57,9 +93,42 @@ const updateIntoDB = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const insertAssignToDB = catchAsync(async (req, res) => {
+  const authUserMobileNo = req.user?.mobileNo;
+  const assignUserMobileNo = req.body.assignTo;
+
+  const result = await CapitalItemService.insertAssignToDB(
+    authUserMobileNo,
+    assignUserMobileNo,
+    req.params.id
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Assign Successfully',
+    data: result,
+  });
+});
+const insertApproveToDB = catchAsync(async (req, res) => {
+  const authUserMobileNo = req.user?.mobileNo;
+  const result = await CapitalItemService.insertApproveToDB(
+    authUserMobileNo,
+    req.params.id
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Approved Successfully',
+    data: result,
+  });
+});
 export const CapitalItemController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,
   updateIntoDB,
+  insertAssignToDB,
+  getAllNotAssignFromDB,
+  insertApproveToDB,
+  getAllNotApproveFromDB,
 };

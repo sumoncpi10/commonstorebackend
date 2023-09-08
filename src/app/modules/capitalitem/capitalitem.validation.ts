@@ -17,9 +17,7 @@ const create = z.object({
     warranty: z.string({
       required_error: 'warranty is required',
     }),
-    identificationNo: z.string({
-      required_error: 'identificationNo is required',
-    }),
+    identificationNo: z.string().optional(),
     status: z.string({
       required_error: 'status is required',
     }),
