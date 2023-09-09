@@ -428,7 +428,7 @@ const insertAssignToDB = async (
     },
   });
   // for get all data from db by itemcode and pbscode and zonalCode
-  const lastIdentificationNo = await prisma.capitalItem.findMany({
+  const allData = await prisma.capitalItem.findMany({
     where: {
       itemCode: capitalItemDataFromDB?.itemCode,
       pbsCode: authUser.pbsCode,
@@ -436,29 +436,37 @@ const insertAssignToDB = async (
     },
   });
 
-  const newIdentificationNo: any = [];
-  lastIdentificationNo.map(element => {
-    newIdentificationNo.push(element?.identificationNo);
+  const allIdentificationNo: any = [];
+  allData.map(element => {
+    allIdentificationNo.push(element?.identificationNo);
   });
-
-  const newIdentificationNo2: number[] = [];
-  newIdentificationNo.map((element: string) => {
+  const arrayOfIdentificationNoLastTwoDigit: number[] = [];
+  allIdentificationNo.map((element: string) => {
     const num = parseInt(element.slice(-2));
-    newIdentificationNo2.push(num);
+    arrayOfIdentificationNoLastTwoDigit.push(num);
   });
-  const maxNumber: number = Math.max(...newIdentificationNo2);
-
+  const maxNumber: number = Math.max(...arrayOfIdentificationNoLastTwoDigit);
+  let identificationNo;
   const zonalOfficeCode = bodyData.zonalCode.toString().slice(-2);
-
-  // identification No Generate
-  const identificationNo =
-    authUser.pbsCode +
-    '.' +
-    zonalOfficeCode +
-    '.' +
-    capitalItemDataFromDB?.itemCode +
-    '.' +
-    (maxNumber < 9 ? '0' + (maxNumber + 1) : maxNumber + 1).toString();
+  if (allIdentificationNo.length < 1) {
+    identificationNo =
+      authUser.pbsCode +
+      '.' +
+      zonalOfficeCode +
+      '.' +
+      capitalItemDataFromDB?.itemCode +
+      '.' +
+      '01';
+  } else {
+    identificationNo =
+      authUser.pbsCode +
+      '.' +
+      zonalOfficeCode +
+      '.' +
+      capitalItemDataFromDB?.itemCode +
+      '.' +
+      (maxNumber < 9 ? '0' + (maxNumber + 1) : maxNumber + 1).toString();
+  }
 
   const result = prisma.capitalItem.update({
     where: {
