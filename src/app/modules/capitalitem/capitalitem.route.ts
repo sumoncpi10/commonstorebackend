@@ -51,4 +51,24 @@ router.get(
   auth(ADMIN, SUPER_ADMIN),
   CapitalItemController.getAllNotApproveFromDB
 );
+router.post(
+  '/certify-capital-item/:id',
+  auth(ADMIN, SUPER_ADMIN),
+  CapitalItemController.insertcertifyToDB
+);
+router.get(
+  '/not-certify/:pbsCode',
+  auth(ADMIN, SUPER_ADMIN),
+  CapitalItemController.getAllNotCertifyFromDB
+);
+router.post(
+  '/receive-capital-item/:id',
+  auth(ADMIN, SUPER_ADMIN),
+  CapitalItemController.insertReceiveToDB
+);
+router.get(
+  '/not-receive/:pbsCode',
+  auth(ADMIN, SUPER_ADMIN),
+  CapitalItemController.getAllNotReceiveFromDB
+);
 export const CapitalItemRoutes = router;

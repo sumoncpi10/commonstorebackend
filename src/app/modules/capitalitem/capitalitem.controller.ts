@@ -72,6 +72,44 @@ const getAllNotApproveFromDB = catchAsync(async (req, res) => {
   });
 });
 
+const getAllNotCertifyFromDB = catchAsync(async (req, res) => {
+  const pbsCode = req.params.id;
+  const filters = pick(req.query, capitalItemFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+
+  const result = await CapitalItemService.getAllNotCertifyFromDB(
+    filters,
+    options,
+    pbsCode
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Not Certify CapitalItem data fatched',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
+const getAllNotReceiveFromDB = catchAsync(async (req, res) => {
+  const pbsCode = req.params.id;
+  const filters = pick(req.query, capitalItemFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+
+  const result = await CapitalItemService.getAllNotReveiveFromDB(
+    filters,
+    options,
+    pbsCode
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Not Receive CapitalItem data fatched',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 const getDataById = catchAsync(async (req, res) => {
   const id = req.params.id;
   const result = await CapitalItemService.getDataById(id);
@@ -94,12 +132,9 @@ const updateIntoDB = catchAsync(async (req, res) => {
   });
 });
 const insertAssignToDB = catchAsync(async (req, res) => {
-  const authUserMobileNo = req.user?.mobileNo;
-  const assignUserMobileNo = req.body.assignTo;
-
   const result = await CapitalItemService.insertAssignToDB(
-    authUserMobileNo,
-    assignUserMobileNo,
+    req.user,
+    req.body,
     req.params.id
   );
   sendResponse(res, {
@@ -122,6 +157,32 @@ const insertApproveToDB = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const insertcertifyToDB = catchAsync(async (req, res) => {
+  const authUserMobileNo = req.user?.mobileNo;
+  const result = await CapitalItemService.insertCertifyToDB(
+    authUserMobileNo,
+    req.params.id
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Certify Successfully',
+    data: result,
+  });
+});
+const insertReceiveToDB = catchAsync(async (req, res) => {
+  const authUserMobileNo = req.user?.mobileNo;
+  const result = await CapitalItemService.insertReceiveToDB(
+    authUserMobileNo,
+    req.params.id
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Receive Successfully',
+    data: result,
+  });
+});
 export const CapitalItemController = {
   insertIntoDB,
   getAllFromDB,
@@ -131,4 +192,8 @@ export const CapitalItemController = {
   getAllNotAssignFromDB,
   insertApproveToDB,
   getAllNotApproveFromDB,
+  insertcertifyToDB,
+  getAllNotCertifyFromDB,
+  insertReceiveToDB,
+  getAllNotReceiveFromDB,
 };
