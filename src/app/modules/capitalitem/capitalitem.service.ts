@@ -80,10 +80,10 @@ const getAllFromDB = async (
             createdAt: 'desc',
           },
   });
-  const total = await prisma.capitalItem.count();
+  // const total = await prisma.capitalItem.count();
   return {
     meta: {
-      total,
+      total: result.length,
       page,
       limit,
     },
@@ -322,11 +322,12 @@ const getAllNotCertifyFromDB = async (
 const getAllNotReveiveFromDB = async (
   filters: capitalItemFilterRequest,
   options: IPaginationOptions,
-  pbsCode: string
+  pbsCode: string,
+  user: any
 ): Promise<IGenericResponse<CapitalItem[]>> => {
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // eslint-disable-next-line no-unused-vars
-
+  console.log(user);
   const { searchTerm, ...filtersData } = filters;
   const andConditions = [];
   if (searchTerm) {
@@ -350,13 +351,17 @@ const getAllNotReveiveFromDB = async (
     });
   }
 
+  // const whereCondition: Prisma.CapitalItemWhereInput =
+  //   andConditions.length > 0 ? { AND: andConditions } : {};
   const whereCondition: Prisma.CapitalItemWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
+
   const result = await prisma.capitalItem.findMany({
     where: {
       ...whereCondition,
       pbsCode: pbsCode,
       receivedByMobileNo: null,
+      assignToMobileNo: user.mobileNo,
     },
     skip,
     take: limit,
@@ -385,10 +390,12 @@ const getAllNotReveiveFromDB = async (
             createdAt: 'desc',
           },
   });
-  const total = await prisma.capitalItem.count();
+  // const total = await prisma.capitalItem.count();
+  console.log('result', result.length);
+  // const total = andConditions.length;
   return {
     meta: {
-      total,
+      total: result.length,
       page,
       limit,
     },

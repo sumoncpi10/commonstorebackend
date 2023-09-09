@@ -99,7 +99,8 @@ const getAllNotReceiveFromDB = catchAsync(async (req, res) => {
   const result = await CapitalItemService.getAllNotReveiveFromDB(
     filters,
     options,
-    pbsCode
+    pbsCode,
+    req.user
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,

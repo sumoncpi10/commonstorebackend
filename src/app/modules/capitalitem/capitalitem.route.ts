@@ -66,6 +66,7 @@ router.post(
   auth(ADMIN, SUPER_ADMIN),
   CapitalItemController.insertReceiveToDB
 );
+// user wise kora hoyeche
 router.get(
   '/not-receive/:pbsCode',
   auth(ADMIN, SUPER_ADMIN),
