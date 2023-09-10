@@ -261,6 +261,7 @@ model CapitalItem {
   revenueItem         RevenueItem[]
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
+  survicings          Survicing[]
 
   @@map("capital_item")
 }
@@ -310,6 +311,8 @@ model RevenueItem {
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
 
+  survicings Survicing[]
+
   @@map("revenue_item")
 }
 
@@ -324,8 +327,26 @@ model Supplier {
   revenueItem RevenueItem[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+  survicings  Survicing[]
 
   @@map("suppliers")
+}
+
+model Survicing {
+  id               String      @id @default(uuid())
+  survicingCost    String
+  survicingDate    DateTime
+  description      String
+  identificationNo String
+  capitalItems     CapitalItem @relation(fields: [identificationNo], references: [identificationNo])
+  suplierId        String
+  supplier         Supplier    @relation(fields: [suplierId], references: [id])
+  revenueItemId    String
+  revenueItem      RevenueItem @relation(fields: [revenueItemId], references: [id])
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  @@map("survicings")
 }
 
 enum ItemCode {

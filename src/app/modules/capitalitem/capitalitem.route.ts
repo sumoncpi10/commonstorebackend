@@ -34,6 +34,7 @@ router.patch(
 router.post(
   '/assign-capital-item/:id',
   auth(ADMIN, SUPER_ADMIN),
+  validateRequest(CapitalItemValidation.createAssign),
   CapitalItemController.insertAssignToDB
 );
 router.get(

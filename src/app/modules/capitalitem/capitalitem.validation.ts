@@ -23,6 +23,16 @@ const create = z.object({
     }),
   }),
 });
+const createAssign = z.object({
+  body: z.object({
+    assignTo: z.string({
+      required_error: 'assignTo  is required',
+    }),
+    zonalCode: z.string({
+      required_error: 'zonalCode is required',
+    }),
+  }),
+});
 const update = z.object({
   body: z.object({
     serialNo: z.string().optional(),
@@ -37,4 +47,5 @@ const update = z.object({
 export const CapitalItemValidation = {
   create,
   update,
+  createAssign,
 };
