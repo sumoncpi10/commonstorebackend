@@ -70,8 +70,8 @@ https://computer-management-system.onrender.com/api/v1/designation/designation<b
 https://computer-management-system.onrender.com/api/v1/designation/<br>
 
 <hr>
-------------------------- # 12/09/2023 ------------------
-# User:<br>
+------------------------- # 12/09/2023 ------------------<br>
+- # User:<br>
 http://localhost:5000/api/v1/user/pbs-posting-request (POST)<br>
 Request body:
 
@@ -83,4 +83,19 @@ Request body:
 
 http://localhost:5000/api/v1/user/pbs-all-transfer-requested-user/35 (GET)<br>
 http://localhost:5000/api/v1/user/pbs-posting-request-approve (POST)<br>
+Request body:
+
+```json
+{
+  "mobileNo": "01793047162"
+}
+```
+
 http://localhost:5000/api/v1/user/pbs-posting-request-cancel (POST)<br>
+Request body:
+
+```json
+{
+  "mobileNo": "01793047162"
+}
+```
