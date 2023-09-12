@@ -9,24 +9,7 @@ import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { userSearchableFields } from './user.constrant';
 import { userFilterRequest } from './user.interface';
-// const inertIntoDB = async (data: User): Promise<User> => {
-//   data.password = await bcrypt.hash(
-//     data.password,
-//     Number(config.bycrypt_salt_rounds)
-//   );
-//   const result = prisma.user.create({
-//     data: data,
-//   });
-//   if (result) {
-//     // eslint-disable-next-line no-unused-vars
-//     const createEmployee = await prisma.employee.create({
-//       data: {
-//         mobileNo: (await result).mobileNo,
-//       },
-//     });
-//   }
-//   return result;
-// };
+
 const inertIntoDB = async (data: User): Promise<User> => {
   let result: User | null = null;
 
@@ -43,7 +26,6 @@ const inertIntoDB = async (data: User): Promise<User> => {
     await tx.employee.create({
       data: {
         mobileNo: result.mobileNo,
-        name: result.name,
       },
     });
   });

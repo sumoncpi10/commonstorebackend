@@ -75,7 +75,7 @@ model ComplainCenter {
 }
 
 model User {
-  name                   String?
+  name                   String
   mobileNo               String    @id
   password               String
   role                   String
@@ -125,7 +125,6 @@ model User {
 
 model Employee {
   id          String   @id @default(uuid())
-  name        String?
   designation String?
   phone       String?
   address     String?

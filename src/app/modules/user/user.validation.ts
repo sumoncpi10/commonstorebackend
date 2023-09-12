@@ -21,7 +21,7 @@ const create = z.object({
 });
 const update = z.object({
   body: z.object({
-    mobileNo: z.string().optional(),
+    name: z.string().optional(),
     password: z.string().optional(),
     pbsCode: z.string().optional(),
     zonalCode: z.string().optional(),
