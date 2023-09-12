@@ -84,13 +84,14 @@ Request body:
 http://localhost:5000/api/v1/user/pbs-all-transfer-requested-user/35 (GET)<br>
 http://localhost:5000/api/v1/user/pbs-posting-request-approve/:mobileNo (POST)<br>
 
-http://localhost:5000/api/v1/user/pbs-posting-request-cancel/:mobileNo (POST)<br>
+http://localhost:5000/api/v1/user/pbs-posting-request-cancel/:mobileNo (POST)<br><br><br>
 http://localhost:5000/api/v1/user/zonal-posting-request (POST)<br>
 Request body:
 
 ```json
 {
-  "mobileNo": "01793047162"
+  "mobileNo": "01793047162",
+  "zonalCode": "3502"
 }
 ```
 
