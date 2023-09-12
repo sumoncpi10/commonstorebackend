@@ -99,3 +99,21 @@ http://localhost:5000/api/v1/user/zonal-all-transfer-requested-user/35 (GET)<br>
 http://localhost:5000/api/v1/user/zonal-posting-request-approve/:mobileNo (POST)<br>
 
 http://localhost:5000/api/v1/user/zonal-posting-request-cancel/:mobileNo (POST)<br>
+
+<br>
+<br>
+- # Employee:<br>
+  http://localhost:5000/api/v1/employee/01845645545656 (Patch)<br>
+
+```json
+{
+  "designation": "Software Engineer",
+  "phone": "123-456-7890",
+  "address": "123 Main St, City",
+  "trgId": "EMP001",
+  "photoUrl": "https://example.com/johndoe.jpg",
+  "signUrl": "https://example.com/johndoe-sign.jpg"
+}
+```
+
+http://localhost:5000/api/v1/employee/01845645545656 (GET)<br>

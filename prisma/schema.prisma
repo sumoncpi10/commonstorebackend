@@ -125,15 +125,15 @@ model User {
 
 model Employee {
   id          String   @id @default(uuid())
-  name        String
-  designation String
+  name        String?
+  designation String?
   phone       String?
   address     String?
   trgId       String?
   photoUrl    String?
   signUrl     String?
   mobileNo    String   @unique
-  user        User     @relation(fields: [mobileNo], references: [mobileNo])
+  user        User?    @relation(fields: [mobileNo], references: [mobileNo])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

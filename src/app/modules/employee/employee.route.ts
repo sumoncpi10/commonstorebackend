@@ -6,19 +6,8 @@ import { EmployeeController } from './employee.controller';
 import { EmployeeValidation } from './employee.validation';
 const { SUPER_ADMIN, ADMIN, USER } = ENUM_USER_ROLE;
 const router = express.Router();
-router.post(
-  '/create-employee',
-  auth(ADMIN, SUPER_ADMIN),
-  validateRequest(EmployeeValidation.create),
-  EmployeeController.insertIntoDB
-);
 router.get(
-  '/',
-  auth(ADMIN, SUPER_ADMIN, USER),
-  EmployeeController.getAllFromDB
-);
-router.get(
-  '/:id',
+  '/:mobileNo',
   auth(ADMIN, SUPER_ADMIN, USER),
   EmployeeController.getDataById
 );
