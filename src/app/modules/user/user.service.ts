@@ -108,18 +108,6 @@ const updateIntoDB = async (
   return result;
 };
 
-const employeePostingZonal = async (
-  employeeMobileNo: string,
-  zonalCode: string
-): Promise<User> => {
-  const result = prisma.user.update({
-    where: {
-      mobileNo: employeeMobileNo,
-    },
-    data: { zonalCode: zonalCode },
-  });
-  return result;
-};
 const pbsPostingRequest = async (
   authUser: any,
   bodyData: any
@@ -140,7 +128,6 @@ const pbsPostingRequest = async (
 };
 
 const getAllPbsTransferRequestedUser = async (
-  filters: userFilterRequest,
   options: IPaginationOptions,
   pbsCode: string
 ): Promise<IGenericResponse<User[]>> => {
@@ -182,12 +169,12 @@ const getAllPbsTransferRequestedUser = async (
 
 const pbsPostingRequestApprove = async (
   authUser: any,
-  bodyData: any
+  userMobileNo: string
 ): Promise<User> => {
   console.log('authUser', authUser);
   const result = prisma.user.update({
     where: {
-      mobileNo: bodyData.mobileNo,
+      mobileNo: userMobileNo,
     },
     data: {
       pbsTransferStatus: false,
@@ -204,17 +191,117 @@ const pbsPostingRequestApprove = async (
 
 const pbsPostingRequestCancel = async (
   authUser: any,
-  bodyData: any
+  userMobileNo: string
 ): Promise<User> => {
   console.log('authUser', authUser);
   const result = prisma.user.update({
     where: {
-      mobileNo: bodyData.mobileNo,
+      mobileNo: userMobileNo,
     },
     data: {
       pbsTransferStatus: false,
       pbsTranferCancelBy: authUser.mobileNo,
       pbsTranferCancelDate: new Date(),
+    },
+  });
+  return result;
+};
+const zonalPostingRequest = async (
+  authUser: any,
+  bodyData: any
+): Promise<User> => {
+  const result = prisma.user.update({
+    where: {
+      mobileNo: bodyData.mobileNo,
+    },
+    data: {
+      zonalTransferStatus: true,
+      requestedZonalCode: bodyData.zonalCode,
+      zonalTransferRequestBy: authUser.mobileNo,
+      zonalTransferRequestDate: new Date(),
+    },
+  });
+  return result;
+};
+
+const getAllZonalTransferRequestedUser = async (
+  options: IPaginationOptions,
+  pbsCode: string
+): Promise<IGenericResponse<User[]>> => {
+  const { page, limit, skip } = paginationHelpers.calculatePagination(options);
+  // eslint-disable-next-line no-unused-vars
+  const result = await prisma.user.findMany({
+    where: {
+      zonalTransferStatus: true,
+      pbsCode: pbsCode,
+    },
+    skip,
+    take: limit,
+    include: {
+      pbs: true,
+      zonals: true,
+      complainCenter: true,
+      substation: true,
+      employee: true,
+    },
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? {
+            [options.sortBy]: options.sortOrder,
+          }
+        : {
+            createdAt: 'desc',
+          },
+  });
+  const total = await prisma.user.count();
+  return {
+    meta: {
+      total,
+      page,
+      limit,
+    },
+    data: result,
+  };
+};
+
+const zonalPostingRequestApprove = async (
+  authUser: any,
+  userMobileNo: string
+): Promise<User> => {
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      mobileNo: userMobileNo,
+    },
+  });
+  const result = await prisma.user.update({
+    where: {
+      mobileNo: userMobileNo,
+    },
+    data: {
+      zonalTransferStatus: false,
+      zonalTranferApprovedBy: authUser.mobileNo,
+      zonalTranferApprovedDate: new Date(),
+      zonalCode: existingUser?.requestedZonalCode,
+      requestedZonalCode: null,
+    },
+  });
+
+  return result;
+};
+
+const zonalPostingRequestCancel = async (
+  authUser: any,
+  userMobileNo: string
+): Promise<User> => {
+  const result = prisma.user.update({
+    where: {
+      mobileNo: userMobileNo,
+    },
+    data: {
+      zonalTransferStatus: false,
+      zonalTranferCancelBy: authUser.mobileNo,
+      zonalTranferCancelDate: new Date(),
+      requestedZonalCode: null,
     },
   });
   return result;
@@ -225,9 +312,12 @@ export const UserService = {
   getAllFromDB,
   getDataById,
   updateIntoDB,
-  employeePostingZonal,
   pbsPostingRequest,
   pbsPostingRequestApprove,
   pbsPostingRequestCancel,
   getAllPbsTransferRequestedUser,
+  zonalPostingRequest,
+  zonalPostingRequestApprove,
+  zonalPostingRequestCancel,
+  getAllZonalTransferRequestedUser,
 };

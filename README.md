@@ -82,7 +82,10 @@ Request body:
 ```
 
 http://localhost:5000/api/v1/user/pbs-all-transfer-requested-user/35 (GET)<br>
-http://localhost:5000/api/v1/user/pbs-posting-request-approve (POST)<br>
+http://localhost:5000/api/v1/user/pbs-posting-request-approve/:mobileNo (POST)<br>
+
+http://localhost:5000/api/v1/user/pbs-posting-request-cancel/:mobileNo (POST)<br>
+http://localhost:5000/api/v1/user/zonal-posting-request (POST)<br>
 Request body:
 
 ```json
@@ -91,11 +94,7 @@ Request body:
 }
 ```
 
-http://localhost:5000/api/v1/user/pbs-posting-request-cancel (POST)<br>
-Request body:
+http://localhost:5000/api/v1/user/zonal-all-transfer-requested-user/35 (GET)<br>
+http://localhost:5000/api/v1/user/zonal-posting-request-approve/:mobileNo (POST)<br>
 
-```json
-{
-  "mobileNo": "01793047162"
-}
-```
+http://localhost:5000/api/v1/user/zonal-posting-request-cancel/:mobileNo (POST)<br>

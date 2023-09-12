@@ -36,8 +36,19 @@ const UserTransferRequstOrApproveOrCancle = z.object({
     }),
   }),
 });
+const UserZonalTransferRequest = z.object({
+  body: z.object({
+    mobileNo: z.string({
+      required_error: 'Mobile No Number is required',
+    }),
+    zonalCode: z.string({
+      required_error: 'Zonal Code is required',
+    }),
+  }),
+});
 export const UserValidation = {
   create,
   update,
   UserTransferRequstOrApproveOrCancle,
+  UserZonalTransferRequest,
 };

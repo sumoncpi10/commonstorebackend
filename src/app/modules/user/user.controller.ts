@@ -54,20 +54,6 @@ const updateIntoDB = catchAsync(async (req, res) => {
   });
 });
 
-const employeePostingZonal: RequestHandler = catchAsync(async (req, res) => {
-  const employeeMobileNo = req.body.mobileNo;
-  const employeeZonalCode = req.body.zonalCode;
-  const result = await UserService.employeePostingZonal(
-    employeeMobileNo,
-    employeeZonalCode
-  );
-  sendResponse<User>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Employee Posting Successfully',
-    data: result,
-  });
-});
 const pbsPostingRequest: RequestHandler = catchAsync(async (req, res) => {
   const result = await UserService.pbsPostingRequest(req.user, req.body);
   sendResponse<User>(res, {
@@ -79,11 +65,10 @@ const pbsPostingRequest: RequestHandler = catchAsync(async (req, res) => {
 });
 const getAllPbsTransferRequestedUser = catchAsync(async (req, res) => {
   const pbsCode = req.params.pbsCode;
-  const filters = pick(req.query, userFilterableFields);
+
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
   const result = await UserService.getAllPbsTransferRequestedUser(
-    filters,
     options,
     pbsCode
   );
@@ -97,9 +82,10 @@ const getAllPbsTransferRequestedUser = catchAsync(async (req, res) => {
 });
 const pbsPostingRequestApprove: RequestHandler = catchAsync(
   async (req, res) => {
+    const userMobileNo = req.params.mobileNo;
     const result = await UserService.pbsPostingRequestApprove(
       req.user,
-      req.body
+      userMobileNo
     );
     sendResponse<User>(res, {
       statusCode: httpStatus.OK,
@@ -109,8 +95,12 @@ const pbsPostingRequestApprove: RequestHandler = catchAsync(
     });
   }
 );
-const pbsPostingRequestCalcel: RequestHandler = catchAsync(async (req, res) => {
-  const result = await UserService.pbsPostingRequestCancel(req.user, req.body);
+const pbsPostingRequestCancel: RequestHandler = catchAsync(async (req, res) => {
+  const userMobileNo = req.params.mobileNo;
+  const result = await UserService.pbsPostingRequestCancel(
+    req.user,
+    userMobileNo
+  );
   sendResponse<User>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -118,14 +108,72 @@ const pbsPostingRequestCalcel: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+const zonalPostingRequest: RequestHandler = catchAsync(async (req, res) => {
+  const result = await UserService.zonalPostingRequest(req.user, req.body);
+  sendResponse<User>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Zonal Transfer Request Successfully',
+    data: result,
+  });
+});
+const getAllZonalTransferRequestedUser = catchAsync(async (req, res) => {
+  const pbsCode = req.params.pbsCode;
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const result = await UserService.getAllZonalTransferRequestedUser(
+    options,
+    pbsCode
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User Transfer Requested data fatched',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+const zonalPostingRequestApprove: RequestHandler = catchAsync(
+  async (req, res) => {
+    const userMobileNo = req.params.mobileNo;
+    const result = await UserService.zonalPostingRequestApprove(
+      req.user,
+      userMobileNo
+    );
+    sendResponse<User>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Zonal Transfer Request Approve Successfully',
+      data: result,
+    });
+  }
+);
+const zonalPostingRequestCancel: RequestHandler = catchAsync(
+  async (req, res) => {
+    const userMobileNo = req.params.mobileNo;
+    const result = await UserService.zonalPostingRequestCancel(
+      req.user,
+      userMobileNo
+    );
+    sendResponse<User>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Zonal Transfer Request Cancel Successfully',
+      data: result,
+    });
+  }
+);
 export const UserController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,
   updateIntoDB,
-  employeePostingZonal,
   pbsPostingRequest,
   pbsPostingRequestApprove,
-  pbsPostingRequestCalcel,
+  pbsPostingRequestCancel,
   getAllPbsTransferRequestedUser,
+  zonalPostingRequest,
+  getAllZonalTransferRequestedUser,
+  zonalPostingRequestApprove,
+  zonalPostingRequestCancel,
 };

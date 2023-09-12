@@ -87,9 +87,14 @@ model User {
   pbsTranferCancelBy     String?
   pbsTranferCancelDate   DateTime?
 
-  zonalTransferStatus Boolean? @default(false)
-
-  zonalTransferApprovedBy       String?
+  zonalTransferStatus           Boolean?        @default(false)
+  requestedZonalCode            String?
+  zonalTransferRequestBy        String?
+  zonalTransferRequestDate      DateTime?
+  zonalTranferApprovedBy        String?
+  zonalTranferApprovedDate      DateTime?
+  zonalTranferCancelBy          String?
+  zonalTranferCancelDate        DateTime?
   pbsCode                       String
   pbs                           PBS             @relation(fields: [pbsCode], references: [pbsCode])
   zonalCode                     String?

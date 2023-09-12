@@ -44,16 +44,35 @@ router.get(
   UserController.getAllPbsTransferRequestedUser
 );
 router.post(
-  '/pbs-posting-request-approve',
+  '/pbs-posting-request-approve/:mobileNo',
   auth(ADMIN, SUPER_ADMIN),
-  validateRequest(UserValidation.UserTransferRequstOrApproveOrCancle),
   UserController.pbsPostingRequestApprove
 );
 router.post(
-  '/pbs-posting-request-cancel',
+  '/pbs-posting-request-cancel/:mobileNo',
   auth(ADMIN, SUPER_ADMIN),
-  validateRequest(UserValidation.UserTransferRequstOrApproveOrCancle),
-  UserController.pbsPostingRequestCalcel
+  UserController.pbsPostingRequestCancel
 );
-
+// -------------zonal
+router.post(
+  '/zonal-posting-request',
+  auth(ADMIN, SUPER_ADMIN),
+  validateRequest(UserValidation.UserZonalTransferRequest),
+  UserController.zonalPostingRequest
+);
+router.get(
+  '/zonal-all-transfer-requested-user/:pbsCode',
+  auth(ADMIN, SUPER_ADMIN),
+  UserController.getAllZonalTransferRequestedUser
+);
+router.post(
+  '/zonal-posting-request-approve/:mobileNo',
+  auth(ADMIN, SUPER_ADMIN),
+  UserController.zonalPostingRequestApprove
+);
+router.post(
+  '/zonal-posting-request-cancel/:mobileNo',
+  auth(ADMIN, SUPER_ADMIN),
+  UserController.zonalPostingRequestCancel
+);
 export const UserRoutes = router;
