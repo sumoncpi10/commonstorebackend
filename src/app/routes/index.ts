@@ -14,6 +14,7 @@ import { RevenueRoutes } from '../modules/revenueitem/revenueitem.route';
 import { SubCategoryRoutes } from '../modules/subcatagory/subcategory.route';
 import { SubstationRoutes } from '../modules/substation/substation.route';
 import { SupplierRoutes } from '../modules/supplier/supplier.route';
+import { SurvicingRoutes } from '../modules/survicing/survicing.route';
 import { UserRoutes } from '../modules/user/user.route';
 import { ZonalRoutes } from '../modules/zonal/zonal.route';
 
@@ -92,6 +93,10 @@ const moduleRoutes = [
   {
     path: '/auth',
     route: AuthRoutes,
+  },
+  {
+    path: '/survicing',
+    route: SurvicingRoutes,
   },
 ];
 

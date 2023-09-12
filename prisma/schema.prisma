@@ -75,9 +75,21 @@ model ComplainCenter {
 }
 
 model User {
-  mobileNo                      String          @id
-  password                      String
-  role                          String
+  name                   String?
+  mobileNo               String    @id
+  password               String
+  role                   String
+  pbsTransferStatus      Boolean?  @default(false)
+  pbsTransferRequestBy   String?
+  pbsTransferRequestDate DateTime?
+  pbsTranferApprovedBy   String?
+  pbsTranferApprovedDate DateTime?
+  pbsTranferCancelBy     String?
+  pbsTranferCancelDate   DateTime?
+
+  zonalTransferStatus Boolean? @default(false)
+
+  zonalTransferApprovedBy       String?
   pbsCode                       String
   pbs                           PBS             @relation(fields: [pbsCode], references: [pbsCode])
   zonalCode                     String?
@@ -101,6 +113,7 @@ model User {
   updatedAt                     DateTime        @updatedAt
   capitalItemCertifiedByCapital CapitalItem[]   @relation("certifiedByCapital")
   revenueItemcertifiedByRevenue RevenueItem[]   @relation("certifiedByRevenue")
+  survicings                    Survicing[]
 
   @@map("users")
 }
@@ -175,11 +188,11 @@ model Category {
 }
 
 model SubCategory {
-  id              String @id @default(uuid())
-  subCategoryName String @unique
-
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
+  id              String   @id @default(uuid())
+  subCategoryName String   @unique
+  itemCode        String?
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id])
 
   capitalItem CapitalItem[]
   revenueItem RevenueItem[]
@@ -333,18 +346,20 @@ model Supplier {
 }
 
 model Survicing {
-  id               String      @id @default(uuid())
-  survicingCost    String
-  survicingDate    DateTime
-  description      String
-  identificationNo String
-  capitalItems     CapitalItem @relation(fields: [identificationNo], references: [identificationNo])
-  suplierId        String
-  supplier         Supplier    @relation(fields: [suplierId], references: [id])
-  revenueItemId    String
-  revenueItem      RevenueItem @relation(fields: [revenueItemId], references: [id])
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
+  id                String      @id @default(uuid())
+  survicingCost     String
+  survicingDate     DateTime
+  description       String
+  serviceByMobileNo String
+  serviceByuser     User        @relation(fields: [serviceByMobileNo], references: [mobileNo])
+  identificationNo  String
+  capitalItems      CapitalItem @relation(fields: [identificationNo], references: [identificationNo])
+  suplierId         String
+  supplier          Supplier    @relation(fields: [suplierId], references: [id])
+  revenueItemId     String
+  revenueItem       RevenueItem @relation(fields: [revenueItemId], references: [id])
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 
   @@map("survicings")
 }

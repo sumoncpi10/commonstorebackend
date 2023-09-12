@@ -5,6 +5,9 @@ const create = z.object({
     mobileNo: z.string({
       required_error: 'mobileNo code is required',
     }),
+    name: z.string({
+      required_error: 'Name code is required',
+    }),
     password: z.string({
       required_error: 'password name is required',
     }),
@@ -26,7 +29,15 @@ const update = z.object({
     complainCode: z.string().optional(),
   }),
 });
+const UserTransferRequstOrApproveOrCancle = z.object({
+  body: z.object({
+    mobileNo: z.string({
+      required_error: 'Mobile No Number is required',
+    }),
+  }),
+});
 export const UserValidation = {
   create,
   update,
+  UserTransferRequstOrApproveOrCancle,
 };

@@ -13,6 +13,7 @@ router.post(
   validateRequest(UserValidation.create),
   UserController.insertIntoDB
 );
+
 router.get(
   '/:pbsCode',
   auth(ADMIN, SUPER_ADMIN, USER),
@@ -28,6 +29,31 @@ router.patch(
   auth(ADMIN, SUPER_ADMIN),
   validateRequest(UserValidation.update),
   UserController.updateIntoDB
+);
+// ------------------------------
+
+router.post(
+  '/pbs-posting-request',
+  auth(ADMIN, SUPER_ADMIN),
+  validateRequest(UserValidation.UserTransferRequstOrApproveOrCancle),
+  UserController.pbsPostingRequest
+);
+router.get(
+  '/pbs-all-transfer-requested-user/:pbsCode',
+  auth(ADMIN, SUPER_ADMIN),
+  UserController.getAllPbsTransferRequestedUser
+);
+router.post(
+  '/pbs-posting-request-approve',
+  auth(ADMIN, SUPER_ADMIN),
+  validateRequest(UserValidation.UserTransferRequstOrApproveOrCancle),
+  UserController.pbsPostingRequestApprove
+);
+router.post(
+  '/pbs-posting-request-cancel',
+  auth(ADMIN, SUPER_ADMIN),
+  validateRequest(UserValidation.UserTransferRequstOrApproveOrCancle),
+  UserController.pbsPostingRequestCalcel
 );
 
 export const UserRoutes = router;
