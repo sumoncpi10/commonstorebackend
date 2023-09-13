@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CapitalItem, Prisma } from '@prisma/client';
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -429,19 +431,41 @@ const insertAssignToDB = async (
   id: string
 ): Promise<CapitalItem> => {
   // for get item code
-  const capitalItemDataFromDB = await prisma.capitalItem.findFirst({
+  const subCategoryDataFromDB = await prisma.subCategory.findFirst({
+    where: {
+      capitalItem: {
+        some: {
+          id: id,
+        },
+      },
+    },
+  });
+  const currentzonal = await prisma.capitalItem.findUnique({
     where: {
       id: id,
     },
   });
-  // for get all data from db by itemcode and pbscode and zonalCode
+
+  // console.log('currentzonal');
+  if (currentzonal?.zonalCode === bodyData.zonalCode) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Already allocated Requested Office'
+    );
+  }
+  if (!subCategoryDataFromDB?.itemCode || !subCategoryDataFromDB) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'item code not found');
+  }
   const allData = await prisma.capitalItem.findMany({
     where: {
-      itemCode: capitalItemDataFromDB?.itemCode,
+      subCategory: {
+        itemCode: subCategoryDataFromDB?.itemCode,
+      },
       pbsCode: authUser.pbsCode,
       zonalCode: bodyData.zonalCode,
     },
   });
+  console.log('allData', allData);
 
   const allIdentificationNo: any = [];
   allData.map(element => {
@@ -461,7 +485,7 @@ const insertAssignToDB = async (
       '.' +
       zonalOfficeCode +
       '.' +
-      capitalItemDataFromDB?.itemCode +
+      subCategoryDataFromDB?.itemCode +
       '.' +
       '01';
   } else {
@@ -470,7 +494,7 @@ const insertAssignToDB = async (
       '.' +
       zonalOfficeCode +
       '.' +
-      capitalItemDataFromDB?.itemCode +
+      subCategoryDataFromDB?.itemCode +
       '.' +
       (maxNumber < 9 ? '0' + (maxNumber + 1) : maxNumber + 1).toString();
   }

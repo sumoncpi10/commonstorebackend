@@ -194,7 +194,7 @@ model Category {
 model SubCategory {
   id              String   @id @default(uuid())
   subCategoryName String   @unique
-  itemCode        String?
+  itemCode        String
   categoryId      String
   category        Category @relation(fields: [categoryId], references: [id])
 
@@ -232,19 +232,18 @@ model Model {
 }
 
 model CapitalItem {
-  id               String    @id @default(uuid())
+  id               String  @id @default(uuid())
   serialNo         String
   description      String
   purchasedate     String
   price            String
   warranty         String
-  identificationNo String?   @unique
-  itemCode         ItemCode?
+  identificationNo String? @unique
   status           String
   modelId          String?
-  model            Model?    @relation(fields: [modelId], references: [id])
+  model            Model?  @relation(fields: [modelId], references: [id])
   brandId          String?
-  brand            Brand?    @relation(fields: [brandId], references: [id])
+  brand            Brand?  @relation(fields: [brandId], references: [id])
 
   pbsCode String
   pbs     PBS    @relation(fields: [pbsCode], references: [pbsCode])
