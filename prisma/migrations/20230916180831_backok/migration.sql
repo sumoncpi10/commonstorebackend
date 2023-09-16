@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "ItemCode" AS ENUM ('CPU', 'MNT', 'UPS', 'DVR');
+
 -- CreateTable
 CREATE TABLE "pbs" (
     "pbsCode" TEXT NOT NULL,
@@ -45,9 +48,25 @@ CREATE TABLE "complain_center" (
 
 -- CreateTable
 CREATE TABLE "users" (
+    "name" TEXT NOT NULL,
     "mobileNo" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" TEXT NOT NULL,
+    "pbsTransferStatus" BOOLEAN DEFAULT false,
+    "pbsTransferRequestBy" TEXT,
+    "pbsTransferRequestDate" TIMESTAMP(3),
+    "pbsTranferApprovedBy" TEXT,
+    "pbsTranferApprovedDate" TIMESTAMP(3),
+    "pbsTranferCancelBy" TEXT,
+    "pbsTranferCancelDate" TIMESTAMP(3),
+    "zonalTransferStatus" BOOLEAN DEFAULT false,
+    "requestedZonalCode" TEXT,
+    "zonalTransferRequestBy" TEXT,
+    "zonalTransferRequestDate" TIMESTAMP(3),
+    "zonalTranferApprovedBy" TEXT,
+    "zonalTranferApprovedDate" TIMESTAMP(3),
+    "zonalTranferCancelBy" TEXT,
+    "zonalTranferCancelDate" TIMESTAMP(3),
     "pbsCode" TEXT NOT NULL,
     "zonalCode" TEXT,
     "substationCode" TEXT,
@@ -61,8 +80,7 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "employees" (
     "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "designation" TEXT NOT NULL,
+    "designation" TEXT,
     "phone" TEXT,
     "address" TEXT,
     "trgId" TEXT,
@@ -121,6 +139,7 @@ CREATE TABLE "category" (
 CREATE TABLE "sub_category" (
     "id" TEXT NOT NULL,
     "subCategoryName" TEXT NOT NULL,
+    "itemCode" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -157,7 +176,7 @@ CREATE TABLE "capital_item" (
     "purchasedate" TEXT NOT NULL,
     "price" TEXT NOT NULL,
     "warranty" TEXT NOT NULL,
-    "identificationNo" TEXT NOT NULL,
+    "identificationNo" TEXT,
     "status" TEXT NOT NULL,
     "modelId" TEXT,
     "brandId" TEXT,
@@ -170,9 +189,10 @@ CREATE TABLE "capital_item" (
     "subCategoryid" TEXT,
     "issueByMobileNo" TEXT,
     "assignToMobileNo" TEXT,
-    "approveByMobleNo" TEXT,
+    "approveByMobileNo" TEXT,
     "receivedByMobileNo" TEXT,
     "addByMobileNo" TEXT NOT NULL,
+    "certifiedByMobileNo" TEXT,
     "supplierId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -204,7 +224,8 @@ CREATE TABLE "revenue_item" (
     "approveByMobleNo" TEXT,
     "receivedByMobileNo" TEXT,
     "addByMobileNo" TEXT NOT NULL,
-    "supplierId" TEXT NOT NULL,
+    "supplierId" TEXT,
+    "certifiedByMobileNo" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -224,8 +245,30 @@ CREATE TABLE "suppliers" (
     CONSTRAINT "suppliers_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "survicings" (
+    "id" TEXT NOT NULL,
+    "survicingCost" TEXT NOT NULL,
+    "survicingDate" TIMESTAMP(3) NOT NULL,
+    "description" TEXT NOT NULL,
+    "serviceByMobileNo" TEXT NOT NULL,
+    "identificationNo" TEXT NOT NULL,
+    "suplierId" TEXT NOT NULL,
+    "revenueItemId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "survicings_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "employees_mobileNo_key" ON "employees"("mobileNo");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "departments_departmentName_key" ON "departments"("departmentName");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "designations_designationName_key" ON "designations"("designationName");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "category_categoryName_key" ON "category"("categoryName");
@@ -234,7 +277,16 @@ CREATE UNIQUE INDEX "category_categoryName_key" ON "category"("categoryName");
 CREATE UNIQUE INDEX "sub_category_subCategoryName_key" ON "sub_category"("subCategoryName");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "brands_brandName_key" ON "brands"("brandName");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "models_modelName_key" ON "models"("modelName");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "capital_item_identificationNo_key" ON "capital_item"("identificationNo");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "suppliers_name_key" ON "suppliers"("name");
 
 -- AddForeignKey
 ALTER TABLE "zonals" ADD CONSTRAINT "zonals_pbsCode_fkey" FOREIGN KEY ("pbsCode") REFERENCES "pbs"("pbsCode") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -312,13 +364,16 @@ ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_issueByMobileNo_fkey" FO
 ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_assignToMobileNo_fkey" FOREIGN KEY ("assignToMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_approveByMobleNo_fkey" FOREIGN KEY ("approveByMobleNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_approveByMobileNo_fkey" FOREIGN KEY ("approveByMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_receivedByMobileNo_fkey" FOREIGN KEY ("receivedByMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_addByMobileNo_fkey" FOREIGN KEY ("addByMobileNo") REFERENCES "users"("mobileNo") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_certifiedByMobileNo_fkey" FOREIGN KEY ("certifiedByMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "capital_item" ADD CONSTRAINT "capital_item_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "suppliers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -369,7 +424,22 @@ ALTER TABLE "revenue_item" ADD CONSTRAINT "revenue_item_receivedByMobileNo_fkey"
 ALTER TABLE "revenue_item" ADD CONSTRAINT "revenue_item_addByMobileNo_fkey" FOREIGN KEY ("addByMobileNo") REFERENCES "users"("mobileNo") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "revenue_item" ADD CONSTRAINT "revenue_item_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "suppliers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "revenue_item" ADD CONSTRAINT "revenue_item_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "suppliers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "revenue_item" ADD CONSTRAINT "revenue_item_certifiedByMobileNo_fkey" FOREIGN KEY ("certifiedByMobileNo") REFERENCES "users"("mobileNo") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "suppliers" ADD CONSTRAINT "suppliers_pbsCode_fkey" FOREIGN KEY ("pbsCode") REFERENCES "pbs"("pbsCode") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "survicings" ADD CONSTRAINT "survicings_serviceByMobileNo_fkey" FOREIGN KEY ("serviceByMobileNo") REFERENCES "users"("mobileNo") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "survicings" ADD CONSTRAINT "survicings_identificationNo_fkey" FOREIGN KEY ("identificationNo") REFERENCES "capital_item"("identificationNo") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "survicings" ADD CONSTRAINT "survicings_suplierId_fkey" FOREIGN KEY ("suplierId") REFERENCES "suppliers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "survicings" ADD CONSTRAINT "survicings_revenueItemId_fkey" FOREIGN KEY ("revenueItemId") REFERENCES "revenue_item"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
