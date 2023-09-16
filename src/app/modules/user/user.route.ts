@@ -9,7 +9,7 @@ const router = express.Router();
 const { SUPER_ADMIN, ADMIN, USER } = ENUM_USER_ROLE;
 router.post(
   '/create-user',
-  auth(ADMIN, SUPER_ADMIN),
+  // auth(ADMIN, SUPER_ADMIN),
   validateRequest(UserValidation.create),
   UserController.insertIntoDB
 );

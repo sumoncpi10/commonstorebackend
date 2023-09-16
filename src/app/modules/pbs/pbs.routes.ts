@@ -8,7 +8,7 @@ const { SUPER_ADMIN, ADMIN, USER } = ENUM_USER_ROLE;
 const router = express.Router();
 router.post(
   '/create-pbs',
-  auth(ADMIN, SUPER_ADMIN),
+  // auth(ADMIN, SUPER_ADMIN),
   validateRequest(PbsValidation.create),
   PbsController.insertIntoDB
 );
